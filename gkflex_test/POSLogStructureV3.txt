@@ -1,0 +1,2557 @@
+=== PAGE 1 ===
+The Retail Innovators
+GK/Retail Solution Model Omni-Channel POS
+Export POSLog
+Structure v3 (Version
+2.5) - 01240215126
+Datum 09.10.2025
+
+=== PAGE 2 ===
+Copyright
+© GK Software Gruppe 2025. Alle Rechte bleiben vorbehalten.
+Die vorliegenden Unterlagen werden von GK Software SE und/oder von mit GK Software SE verbundenen
+Unternehmen (GK Software Gruppe) bereitgestellt und dienen ausschließlich zu Informationszwecken. Die
+GK Software Gruppe übernimmt keinerlei Haftung oder Gewährleistung für Fehler oder Unvollständigkeiten in
+dieser Publikation.
+Die einzigen Gewährleistungen der GK Software Gruppe werden in den ausdrücklichen
+Gewährleistungsregelungen der jeweiligen Verträge zwischen der GK Software Gruppe und ihren Kunden
+oder Partnern getroffen. Aus den in dieser Publikation enthaltenen Informationen ergibt sich keine
+weiterführende Gewährleistung.
+Die Materialien dürfen ohne vorherige ausdrückliche Zustimmung der GK Software Gruppe nicht auf
+irgendeine Weise vervielfältigt oder an Dritte übermittelt werden. Die hier enthaltenen Informationen können
+ohne Vorankündigung geändert werden.
+Alle Firmennamen der GK Software Gruppe, Bezeichnungen von Produkten oder Dienstleistungen der GK
+Software Gruppe, sowie hier erwähnte Logos sind eingetragene Marken und geistiges Eigentum der GK
+Software Gruppe.
+GK Software SE 2 / 47
+
+=== PAGE 3 ===
+Inhalt
+1 History Fehler! Textmarke nicht definiert.
+2 Page History Fehler! Textmarke nicht definiert.
+3 Linked Content 5
+4 Table of Contents 5
+5 Summary 8
+6 Structure 8
+6.1 XSD ................................................................................................................................................................. 8
+6.2 Extensibility .................................................................................................................................................... 8
+6.2.1 Custom elements and attributes (customExtension) ....................................................................... 8
+6.2.2 Additional Enumeration values ........................................................................................................... 8
+6.3 Transaction .................................................................................................................................................... 9
+6.3.1 SES:OperatorBypassApproval ........................................................................................................... 11
+6.3.2 SES:ReceiptHeaderAddonList ........................................................................................................... 11
+6.3.2.1 Addon ......................................................................................................................................... 11
+6.3.3 SES:ReceiptTimerList ........................................................................................................................ 11
+6.3.3.1 Timer .......................................................................................................................................... 11
+6.3.4 SES:LoyaltyAccount ........................................................................................................................... 12
+6.3.4.1 LoyaltyProgram ......................................................................................................................... 12
+6.3.5 SES:TransactionBinaryDataList ........................................................................................................ 12
+6.3.5.1 BinaryData.................................................................................................................................. 12
+6.3.6 RetailTransaction ............................................................................................................................... 12
+6.3.6.1 LineItem ..................................................................................................................................... 14
+6.3.6.2 BinaryData.................................................................................................................................. 29
+6.3.6.3 Customer ................................................................................................................................... 29
+6.3.6.4 TransactionLink ......................................................................................................................... 31
+6.3.6.5 SES:CouponSummary ............................................................................................................... 31
+6.3.7 TenderControlTransaction ................................................................................................................ 32
+6.3.7.1 SES:TenderLoan ........................................................................................................................ 32
+6.3.7.2 Deposit ....................................................................................................................................... 33
+6.3.7.3 TillSettle ..................................................................................................................................... 34
+6.3.7.4 SafeDrop .................................................................................................................................... 35
+6.3.7.5 SES:TenderPickup ..................................................................................................................... 35
+6.3.7.6 SES:PaidIn .................................................................................................................................. 36
+6.3.7.7 SES:PaidOut ............................................................................................................................... 36
+6.3.7.8 SES:TenderInterchange............................................................................................................. 36
+6.3.7.9 SES:TenderLoanCarriedForward .............................................................................................. 37
+GK Software SE 3 / 47
+
+=== PAGE 4 ===
+6.3.7.10 SES:SafeSettle ........................................................................................................................... 37
+6.3.8 ControlTransaction ............................................................................................................................ 38
+6.3.8.1 BusinessEOD ............................................................................................................................. 39
+6.3.8.2 TillEOD ........................................................................................................................................ 39
+6.3.8.3 OperatorSignOn ......................................................................................................................... 42
+6.3.8.4 OperatorSignOff......................................................................................................................... 42
+6.3.8.5 SES:CashierStatistics ................................................................................................................ 42
+6.3.8.6 SES:StoreEODSummary ............................................................................................................ 43
+6.3.8.7 SES:TaxRefund .......................................................................................................................... 44
+6.3.8.8 SES:TransactionLink ................................................................................................................. 44
+GK Software SE 4 / 47
+
+=== PAGE 5 ===
+1 Linked Content
+• Business Concept
+• Business Process
+• Technical Model
+• Test Model
+2 Table of Contents
+• History
+• Page History
+• Linked Content
+• Table of Contents
+• Summary
+• Structure
+o XSD
+o Extensibility
+▪ Custom elements and attributes (customExtension)
+▪ Additional Enumeration values
+o Transaction
+▪ SES:OperatorBypassApproval
+▪ SES:ReceiptHeaderAddonList
+• Addon
+▪ SES:ReceiptTimerList
+• Timer
+▪ SES:LoyaltyAccount
+• LoyaltyProgram
+▪ SES:TransactionBinaryDataList
+• BinaryData
+▪ RetailTransaction
+• LineItem
+o Sale
+▪ POSIdentity
+▪ Associate
+▪ RetailPriceModifier
+▪ Tax
+▪ TransactionLink
+▪ SES:ExternalReceiptReferenceList
+▪ SES:GiftCertificateData
+▪ SES:SalesOrderData
+GK Software SE 5 / 47
+
+=== PAGE 6 ===
+o Return
+▪ TransactionLink
+o Rounding
+o SES:Rounding
+o Voids
+▪ ItemLink
+o LoyaltyReward
+▪ GiftCertificate
+▪ SES:Voucher
+▪ SES:PriceDerivationRule
+o Tax
+▪ TaxExemption
+o Tender
+▪ TenderChange
+▪ Authorization
+▪ ForeignCurrency
+▪ Check
+▪ CreditDebit
+▪ Coupon
+▪ Voucher
+▪ SES:LoyaltyRedemption
+o SES:OperatorBypassApproval
+o SES:ReceiptPositionAddonList
+o SES:LineItemBinaryDataList
+• BinaryData
+• Customer
+o CustomerName
+o Adress
+o Telephone
+o Email
+• TransactionLink
+• SES:CouponSummary
+o SES:CouponSerialSummary
+▪ TenderControlTransaction
+• SES:TenderLoan
+o SES:Totals
+• Deposit
+o DepositDetail
+o SES:DepositForeignCurrency
+• TillSettle
+GK Software SE 6 / 47
+
+=== PAGE 7 ===
+o TenderSummary
+▪ Over
+▪ Short
+▪ SES:Nominal
+▪ SES:Ending
+• SafeDrop
+• SES:TenderPickup
+• SES:PaidIn
+• SES:PaidOut
+• SES:TenderInterchange
+• SES:TenderLoanCarriedForward
+• SES:SafeSettle
+o TenderSummary
+▪ Over
+▪ Short
+▪ SES:Nominal
+▪ SES:Ending
+▪ ControlTransaction
+• BusinessEOD
+• TillEOD
+o TenderSummary
+▪ Beginning
+▪ Pickup
+▪ Over
+▪ Short
+▪ SES:Nominal
+▪ SES:SalesTenderNominal
+▪ SES:Ending
+o SES:SalesSummary
+o SES:RebateSummary
+o SES:TaxSummary
+• OperatorSignOn
+• OperatorSignOff
+• SES:CashierStatistics
+o TotalMeasures
+o LineItemVoids
+o PostTransactionVoids
+o SES:TransactionCancellations
+o SES:DirectLineItemVoids
+• SES:StoreEODSummary
+GK Software SE 7 / 47
+
+=== PAGE 8 ===
+• SES:TaxRefund
+• SES:TransactionLink
+3 Summary
+This document describes the XML structure of export POSLog v3.
+There is a versioning of POSLog export because in future different versions of export should be supported.
+Specification based on namespace:
+"http://www.gk-software.com/storeweaver/sdc/pos_upload/pos_upload/2.5"
+4 Structure
+Under root element POSLog there is a element Transaction for each transaction.
+Data types are according to the XML schema (XSD).
+4.1 XSD
+POSLog 2.5 XSDs - v.5.14.zip
+4.2 Extensibility
+4.2.1 Custom elements and attributes (customExtension)
+For many elements and attributes the XSD contains a customExtension option, which is represented by an
+"any" element or attribute in the XSD (with the "customExtension" namespace).
+The use cases for these customExtensions are:
+• In the GK Product POSLog the XXCustom fields from the Transaction DO are exported without
+having defined them as elements or attributes in the XSD. The namespace prefix for exporting the
+XXCustom fields is "CST", e.g. "CST:XXCustom01". If necessary, within the project it is possible to
+deactivate exporting all XXCustom fields:
+o This deactivation is not possible for single/specific XXCustom fields, only for all of them
+together.
+o This deactivation cannot be done via configuration, but requires a small implementation in
+the project.
+• In the projects, any required field can be added to the POSLog. The recommended namespace prefix
+to be used for the project specific elements and attributes is also "CST". (Note: Such additional fields
+can be used in case the export of the XXCustom fields is generally deactivated, but some content of
+the XXCustom fields still needs to be exported.)
+4.2.2 Additional Enumeration values
+All enumeration data types have the TypeCodeExtension, which means there can be implemented additional
+values for the corresponding elements and attributes without extending the XSD. This TypeCodeExtension
+uses the following regular expression, which is the standard POSLog enumeration extension pattern:
+GK Software SE 8 / 47
+
+=== PAGE 9 ===
+• [0-9A-Za-z][0-9A-Za-z]*:[A-Z][0-9A-Za-z]*
+o Namespace prefix: Any alphanumeric string (not using special characters).
+o After the namespace and the colon: The first character needs to be a capital letter. All other
+characters can be alphanumeric (not using special characters).
+4.3 Transaction
+Attributes
+Attribute optional Description Comment
+MajorVersion major version of POSLog export fix value = 3
+MinorVersion x minor version of POSLog export fix value = 0
+FixVersion x fix version of POSLog export fix value = 0
+SES:InternalMajorVersion internal major version of POSLog export fix value = 2
+interface
+SES:InternalMinorVersion internal minor version of POSLog export fix value = 5
+interface
+SES:InternalFixVersion internal fix version of POSLog export fix value = 9
+interface
+CancelFlag x Flag for canceled transaction
+boolean
+TrainingModeFlag x Flag for transaction, made in training
+mode
+boolean
+XML elements
+XML element optional Description Comment
+RetailStoreID A unique retailer assigned identifier for a
+RetailStore
+WorkstationID Identifier for the workstation/POS within the store.
+(WorkstationID = 0 is used for transactions created
+by POS Server.)
+TillID x Identifier for the tender repository (drawer) within
+the store.
+In case of transactions that don't relate to a
+drawer, the element TillID won't be created.
+SequenceNumber SequenceNumber is the receipt number (that is
+also printed on the receipt). It's a counter used to
+uniquely identify an individual transaction within a
+transaction set identified by: BusinessUnitID
+(RetailStoreID, store number), BusinessDayDate
+(date when transaction was created),
+WorkstationID (terminal, register where transaction
+was entered) and SequenceNumber.
+The sequence number counter is reset to 1 after a
+(configured) maximum number is reached.
+Alternatively it can be configured to reset the
+sequence number to 1 every calendar day.
+The export process adds a prefix to the
+SequenceNumber in following cases:
+• For voiding offline rebooking
+(RetailTransactionTypeCode “RE” and
+TransactionAssociation.TransactionAss
+ociationTypeCode= VOID): “109” (prefix)
++ Transaction.SequenceNumber
+• For offline rebooking
+(RetailTransactionTypeCode “RE”): “108”
+(prefix) + Transaction.SequenceNumber
+BusinessDayDate The calendar date of the BusinessDay.
+BeginDateTime The time and date a transaction is initiated.
+EndDateTime The time and date stamp a transaction is
+completed.
+OperatorID x ID of the operator who created the transaction.
+The element OperatorID itself is empty, but the
+attribute WorkerID is used.
+attributes:
+• OperatorName (optional)
+• WorkerID (optional)
+CurrencyCode The unique identifier of the Currency.
+GK Software SE 9 / 47
+
+=== PAGE 10 ===
+String; 3 digits (EUR, USD, ...)
+ControlTransaction XML-container: created in case of control
+transaction
+RetailTransaction XML-container: created in case of retail
+transaction
+TenderControlTransaction XML-container: created in case of tender control
+transaction
+SES:TenantID x The unique identifier for the TENANT.
+SES:LocationID x won't be created not supported on POS side
+SES:OperatorBypassApprova x XML-container: created in case of approval by see SES:OperatorBypassAp
+l another operator proval
+SES:ReceiptHeaderAddonLis x XML-container: created in case of addition header see
+t information SES:ReceiptHeaderAddonLi
+st
+SES:ReceiptTimerList x XML-container: created in case of time information see SES:ReceiptTimerList
+SES:PriceInformationList x won't be created
+SES:BusinessBeginDateTime x The time and date when the accounting period of
+drawer/store started (only exported for
+StoreEODSummary or TillEOD).
+SES:BusinessEndDateTime x The time and date when the accounting period of
+drawer/store ended (only exported for
+StoreEODSummary or TillEOD).
+SES:InternalSequenceNumb x won't be created
+er
+SES:ReceiptReturnedFlag True in case of return transaction.
+SES:ReasonCode x XML-container:created in case of canceled or
+voided transactions.
+attribute:
+• ReasonType
+• Description
+SES:PostVoidedFlag A flag denoting that the entire original transaction
+has been voided (and reversed) after it was
+completed at the POS. (SES:PostVoidedFlag = true
+for the voiding transaction that voids the original
+transaction.)
+SES:TransactionSoftwareVer x application version with which the transaction was
+sion created.
+SES:SoftwareVersion string of composite terms (GK + release version)
+SES:LoyaltyAccount x XML-container: created in case of loyalty program. see SES:LoyaltyAccount
+SES:KeyedOfflineCode x A code that indicates the online/offline state when
+transaction was completed.
+possible values:
+• OnLineReferenceItem
+• OffLine
+• Both (Online/Offline)
+SES:InternalTransactionID A universally unique identifier (UUID) for the
+Transaction.
+SES:FiscalSequenceNumber x A identifier being created either by the POS, the
+fiscal printer, or other device used for fiscalization.
+SES:FiscalFlag A flag denoting that this is a fiscal transaction.
+SES:FiscalDayNumber x The fiscal day counter.
+SES:FiscalPrinteriID x The identifier of the fiscal printer.
+SES:FiscalSignature x Fiscal signature of the transaction.
+SES:TransactionBinaryDataL x XML-container: created in case of binary data see
+ist attached to the transaction SES:TransactionBinaryData
+List
+SES:LayawayFlag A flag denoting that this is a layaway transaction.
+SES:LayawayTransactionTyp x The type of the layaway transaction. Possible
+e values:
+• 'FullyPay' - fully paid layaways
+• 'Claiming' - claimed layaway
+• 'DownPayment' - down payment layaway
+• 'Modify' - partial voided / modified
+layaway
+• 'Void' - complete voided layaway
+• 'Terminate' - terminated layaway
+• 'Expire' - expired layaway
+• 'Rebooking' - rebooked layaway
+• 'Create' - create layaway
+• 'Extend' - extended layaway (extension
+of expiration date)
+CST:XXCustom01 ... x A separate element is created for every XXCustom
+CST:XXCustom15 field from 01 to 15.
+GK Software SE 10 / 47
+
+=== PAGE 11 ===
+customExtension x Any elements can be added to the XML.
+4.3.1 SES:OperatorBypassApproval
+Attributes
+Attribute optional Description Comment
+ApprovalTypeCode shows, how authorization was triggered
+fix value: "CODE" (operator number)
+XML-Elements
+XML element optional Description Comment
+ApprovalCode x won't be created
+ApproverID x ID of authorizing operator
+attributes:
+• WorkerID (optional)
+• ApproverName (optional)
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+4.3.2 SES:ReceiptHeaderAddonList
+XML-Elements
+XML element optional Description Comment
+Addon see Addon
+4.3.2.1 Addon
+XML-Elements
+XML element optional Description Comment
+AddonPos x addon sequence number per Key
+Key addon key
+possible values:
+e.g.
+• "TransactionTypeCode"
+• "TransactionCategoryCode"
+• "FIRSTLOGIN"
+• ONLINE
+• OFFLINE
+Value possible values:
+e.g.
+• value of TransactionTypeCode
+• value of TransactionCategoryCode
+• "true" (FIRSTLOGIN)
+• timestamp of switch the connection
+status (Online/Offline)
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+4.3.3 SES:ReceiptTimerList
+XML-Elements
+XML element optional Description Comment
+Timer XML-container: see Timer
+4.3.3.1 Timer
+XML-Elements
+XML element optional Description Comment
+TimerID "76" (first item registration to first tender
+registration)
+"77" (first tender registration to end of receipt)
+StartTimestamp receipt begin timestamp ("76")
+GK Software SE 11 / 47
+
+=== PAGE 12 ===
+tender begin timestamp ("77")
+Duration duration from receipt begin timestamp to tender
+begin timestamp ("76")
+duration from tender begin timestamp to end of
+receipt timestamp ("77")
+seconds with 3 decimals
+customExtension x Any elements can be added to the XML.
+4.3.4 SES:LoyaltyAccount
+XML element optional Description Comment
+CustomerID x Customer ID
+LoyaltyProgram x XML-container:created in case of loyalty see LoyaltyProgram
+program information.
+4.3.4.1 LoyaltyProgram
+XML element optional Description Comment
+LoyaltyAccountID x The identifier of the loyalty account.
+EffectiveDate x Effective date
+Points x Type of points
+Attributes:
+• Type
+LoyaltyAccountTypeCode Determines the kind of customer account.
+e.g.
+• 00 - turnover of the (current) year
+• 01 - rebate amount which was
+granted during the (current) year
+• 02 - bonus points
+• VP - Valuephone transaction
+• GC - not used / partial returned gift
+certificates
+LoyaltyAccountTransactionID x The external identifier of the accounting
+transaction of the the loyalty account.
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+4.3.5 SES:TransactionBinaryDataList
+XML-Elements
+XML element optional Description Comment
+BinaryData see BinaryData
+4.3.5.1 BinaryData
+XML-Elements
+XML element optional Description Comment
+Name The name of the binary data entry.
+Content The binary object (Base64 encoded).
+e.g.:
+• Journal
+• GraphicalJournal
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+4.3.6 RetailTransaction
+Attributes
+Attribute optional Description Comment
+TransactionStatus status of transaction
+possible values:
+GK Software SE 12 / 47
+
+=== PAGE 13 ===
+• PostVoided
+• Suspended
+• Unknown
+• SES:ItemInfo
+• Replaced
+• SES:Invoice
+• Finished
+• SES:LayawayPostVoided
+• SES:Ordered
+• SES:Moved
+• SES:Scale
+• SES:ScalePostVoided
+XML-elements
+XML element optional Description Comment
+ReceiptDateTime x date and time of receipt
+LineItem x XML-container: contains information about see LineItem
+line items and tender line items
+Total x total amount of the transaction
+attributes:
+• TotalType (optional) =
+"TransactionGrandAmount“
+• CST:XXCustom01 ...
+CST:XXCustom05 (optional)
+• customExtension (optional)
+Total x total net amount of the transaction
+attribute:
+• TotalType (optional) =
+"TransactionNetAmount“
+Total x total tax amount of the transaction
+attribute:
+• TotalType (optional) =
+"TransactionTaxAmount“
+Customer x XML-container: will be created in case the see Customer
+receipt includes customer data
+TransactionLink x XML-container: will be created in following see TransactionLink
+cases:
+• voiding receipt - link to original
+receipt
+• invoice - link to original sales
+receipt
+• offline rebooking - link to original
+sales receipt
+• voiding offline rebooking - link
+original offline rebooking receipt
+• layaway relevant receipt (except
+layaway create receipt) - link to
+original layaway create receipt
+• retrieving receipt - link to
+retrieved suspended receipt
+• replacing transaction - link to
+replaced transaction
+SES:CustomerSurvey x XML-container: will be created in case the currently not supported
+receipt includes data from a customer
+survey
+SES:NegativeTotalFlag "false" in case of total amount >=0
+"true" in case of total amount <0
+SES:AmendmentFlag x "true" in case of amendment (former
+AmendmentTypeCode 01 and 02)
+otherwise "false"
+SES:EmailRequestedFlag x "true" in case of send receipt as mail is
+activated
+SES:EmailAddress x email address
+SES:InvoicePrintoutTypeCode x invoice printout is activated
+will be created if invoice is activate or
+printed
+SES:InvoiceNumber x number of the invoice
+will be created if invoice number was
+generated
+SES:CouponSummary x XML-container: will be created for each see SES:CouponSummary
+coupon
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+GK Software SE 13 / 47
+
+=== PAGE 14 ===
+customExtension x Any elements can be added to the XML.
+4.3.6.1 LineItem
+Attributes
+Attribute optional Description Comment
+VoidFlag x "true" in case of
+• former
+GK_BONPOSITION.STORNOTYP=4
+• former
+GK_BONZAHLUNG.STORNOTYP=4
+otherwise "false"
+EntryMethod x will be created only in case of
+• sale
+• return
+possible values:
+• "Scanned"
+• "SES:KeyedPerDuplicate"
+• "Keyed"
+customExtension x Any attributes can be added to the XML.
+XML-Elements
+XML element opti Description Comment
+onal
+SequenceNumbe for additional down payment line items for immediate pickups:
+r • consecutive number starting with 100 001
+Else
+sequence number of original receipt position
+• no consecutive number over all LineItems (item, tax and tender
+positions)
+• starts with '0'
+• can have holes, because of technical reasons not all line items
+are exported
+• certain line items have a number range for sequence number
+(e.g. tax line items with sequence number range 25001 - 30000)
+BeginDateTime x date time of positon creation
+ch Sale XML-container: will be created in case of sale positions see Sale
+oic Return XML-container: will be created in case of return positions see Return
+e Rounding rounding total; will be created only in case of existing rounding difference
+for the sum of
+• subtotal rounding
+• tender change rounding
+SES:Rounding XML-container: rounding line item; will be created only in case of existing see SES:Rounding
+rounding difference for
+• subtotal rounding
+• tender change rounding
+Voids XML-container: will be created only in case of void posiiton see Voids
+LoyaltyReward XML-container: will be created only in case of non-financial bonus see LoyaltyReward
+Tax XML-container: will be created for each used tax group see Tax
+Tender XML-container: will be created for each used tender see Tender
+SES:OperatorByp x XML-container: created in case of approval by another operator see
+assApproval SES:OperatorBypas
+sApproval
+SES:DirectVoidFl x will be created in case of voided original receipt position
+ag value depends on cancellation type of voiding position
+possible values
+true: in case of direct void
+otherwise false
+SES:NegativeAm x Rounding:
+ountFlag will be created in case of existing rounding differences;
+true: in case of negative sign of the rounding amount
+otherwise false
+Tax:
+will be created if TaxableAmount <> 0
+true: if TaxableAmount < 0
+otherwise false
+SES:KeyedOffline x A code that indicates the online/offline state when the line item was
+Code completed.
+possible values:
+• OnLineReferenceItem
+• OffLine
+• Both (Online/Offline)
+GK Software SE 14 / 47
+
+=== PAGE 15 ===
+SES:ReceiptPositi x XML-container: contains all information about position addons see
+onAddonList SES:ReceiptPositio
+nAddonList
+SES:LineItemBina x XML-container: created in case of binary data attached to the line item see
+ryDataList LineItemBinaryData
+List
+CST:XXCustom0 x A separate element is created for every XXCustom field from 01 to 05.
+1 ...
+CST:XXCustom0
+5
+customExtension x Any elements can be added to the XML.
+Sale
+Element will be created in case of sales transaction (no returns, no empties, no voids).
+Attributes
+Attribute optional Description Comment
+ItemType Type of line item
+Possible values:
+• "Stock"
+• "Deposit"
+• "ItemCollection"
+• "SES:GiftCertificate"
+• "SES:Inpayment"
+• "SES:Outpayment"
+• "SES:PhoneCard"
+• "SES:RebateGiftCertificate"
+• "SES:CustomerOrder"
+• "SES:Pickup"
+• "SES:Downpayment"
+• "SES:DownpaymentClearing"
+• "SES:InvoicePayment"
+• "SES:Donation"
+• "SES:Other"
+• "Fee"
+• "SES:ComboMeal"
+customExtension x Any attributes can be added to the XML.
+XML-Elements
+XML element op Description Comment
+tio
+nal
+POSIdentity x see POSIdentity
+ItemID x item ID
+attribute:
+• Name (optional)
+SpecialOrderNu x will be created in case of existing
+mber • invoice number
+• customer order number
+MerchandiseHie x will be created in case of assigned merchandise hierarchy group
+rarchy
+EPC x EPC will be used to identify individual items, e.g.:
+• stores EPC from RFID scanning
+Description x item description
+TaxIncludedInPri x true: in case of tax is included
+ceFlag otherwise false
+RegularSalesUni x regular sales unit price of item (or package price)
+tPrice attribute:
+• Currency (not created)
+• ForeignAmount (not created)
+• Quantity (optional, only created in case of package prices)
+• UnitOfMeasureCode (not created)
+ExtendedAmoun discounted price
+t
+ExtendedDiscou x won't be created
+ntAmount
+Quantity x quantity of item
+attributes:
+• Units (optional, will be used in case of lenght, area, space, weight
+and depth)
+• UnitOfMeasureCode (optional, will be used in case of unit of
+GK Software SE 15 / 47
+
+=== PAGE 16 ===
+measure)
+Associate x XML-container: will be created in case of assigned seller see Associate
+RetailPriceModif x XML-container: will be created in case of modifications of position price and see
+ier proportionate receipt conditions RetailPriceModif
+ier
+Tax x XML-container: line item related tax see Tax
+SerialNumber x serial number or gift certificate number
+TransactionLink x XML-container: will be created in following cases: see
+• order receipt - link from food order line item in food order or sales Sale.Transaction
+transaction to the food order line item in food order transaction Link
+(used for Hospitality)
+• order quantity change - link from new food order line item to
+partial voided food order line item (in case of belated partial void
+of food order line items)
+Foodservice x XML-container: will be created in case of line item related food service see Foodservice
+information exists
+SES:ExtendedPo discounted price of position
+sitionAmount
+SES:Merchandis x true in case of generic article number
+eStructureItemFl otherwise false
+ag
+SES:ItemLink x will be created in case of empties
+links to item
+attribute:
+• LinkType
+SES:Concession x supplier ID of concessionaire
+SupplierID
+SES:SpecialOffer x will be created in case of special offer
+Number If Offline Rebooking (RetailTransaction.RetailTransactionTypeCode="RE")
+and if an entry exists in SaleReturnLineItemPrice for the considered receipt
+line item
+If an entry exists in SaleReturnLineItemPrice for the considered receipt line
+item with PriceTypeCode = '01' (promotion price)
+SES:AgeTypeCo x won't be created
+de
+SES:AuthorizedF x false in case of blocking period was discontinued by operator
+orSalesFlag
+SES:PriceOrigin x value "1" in case of price was revaluated
+SES:LoyaltyRew x XML-container: will be created only in case of position specific bonus points see
+ard SES:LoyaltyRew
+ard
+SES:ExternalRec x XML-container: will be created only in case of external receipt (e.g. scale see
+eiptReferenceLis receipt) SES:ExternalRec
+t eiptReferenceLis
+t
+SES:ItemNotFou x won't be created
+ndList
+SES:InvoiceNum x will be created only in case of bill payment on POS
+ber
+SES:ReasonCod x will be created only in case of paid in and paid out
+e attribute:
+• ReasonType - fix value: " InOutpayment"
+SES:GiftCertifica x XML-container: additional data for gift certificate line items see
+teData SES:GiftCertifica
+teData
+SES:SalesOrder x XML-container: additional data for sales order line items see
+Data SES:SalesOrder
+Data
+SES:PriceGroupI x The identifier of the price group the item belongs to in terms of split pricing.
+D
+CST:XXCustom0 x A separate element is created for every XXCustom field from 01 to 15.
+1 ...
+CST:XXCustom1
+5
+customExtensio x Any elements can be added to the XML.
+n
+POSIdentity
+Attributes
+Attribute optional Description Comment
+POSIDType fix values:
+GK Software SE 16 / 47
+
+=== PAGE 17 ===
+• “RegistrationNumber“
+• “MasterData“
+XML-Elements
+XML element optional Description Comment
+POSItemID POSIDType=“RegistrationNumber“:
+on POS entered registration number
+POSIDType=“MasterData“
+main POS item ID
+Qualifier x will be created only in case of a
+magazine/newspaper line item
+value: registration number from digit 14 to end
+Associate
+Attributes
+Attribute optional Description Comment
+CommissionGivenFlag x won't be created
+XML-Elements
+XML element optional Description Comment
+AssociateID seller ID
+attribute:
+• OperatorName (optional)
+• WorkerID (optional, won't be
+created)
+RetailPriceModifier
+XML-elements
+XML element optional Description Comment
+SequenceNumber continuous number over all price
+modifications of one position
+starts with "1"
+Amount absolut amount of price modification
+attribute:
+• Action
+o "Add"
+o "Substract"
+PromotionID x will be created in case of existing position
+condition
+value: description of positon condition
+PriceDerivationRule x XML-container: price derivation rule data; see PriceDerivationRule
+will be created only in case of price
+condition
+ReasonCode reason of corresponding price modification
+default: '0000'
+SES:RebateMethod type code in case of position condition
+property value in case of price change
+otherwise "0000"
+SES:RebateID external promotion ID in case of position
+condition
+property value in case of price change
+otherwise "0"
+SES:Percent x discount percentage (only in case of
+promotions that have a percentage rule)
+SES:ExternalOfferID x identifier of the external offer in case of
+position condition
+property value in case of price change
+SES:AdditionalPriceTypeCode x price type code of the additional price which
+got applied in case of customer specific
+prices
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+PriceDerivationRule
+Attributes
+Attribute optional Description Comment
+GK Software SE 17 / 47
+
+=== PAGE 18 ===
+customExtension x Any attributes can be added to the XML.
+XML-elements
+XML element optional Description Comment
+PriceDerivationRuleID first 40 digits of price derivation rule ID
+Eligibility x XML-container: will be created only in case see Eligibility
+of existing coupon number
+Amount attribute:
+• Action
+SES:Origin x
+SES:AppliedQuantity x
+SES:RuleDescription x will be created only in case of existing rule
+description
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom15 XXCustom field from 01 to 15.
+customExtension x Any elements can be added to the XML.
+Eligibility
+XML element optional Description Comment
+ReferenceID x coupon reference number
+attribute:
+• Type (fix value: "StoreCoupon")
+SES:CouponSerialNumber x won't be created
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+Tax
+Attributes
+Attribute optional Description Comment
+TaxType x fix value:
+"Common"
+TaxSubType x "ZeroRated" in case of rate of tax = 0
+otherwise "Standard"
+TypeCode x possible values:
+• "Refund"
+• "Sale"
+customExtension x Any attributes can be added to the XML.
+XML-elements
+XML element optional Description Comment
+TaxAuthority x ID of the tax authority
+TaxableAmount x taxable amount without sign
+Amount x tax amount
+In case of tax on transaction level, the tax
+amount on sale/return line item level is
+calculated by the export process.
+Percent x tax percentage
+TaxExemption x XML-container: created in case of a tax see TaxExemption
+exemption
+TaxOverride x XML-container: created in case of a tax see TaxOverride
+override
+TaxGroupID x tax group ID
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+TaxExemption
+Attributes
+Attribute optional Description Comment
+customExtension x Any attributes can be added to the XML.
+XML-elements
+XML element optional Description Comment
+CustomerExemptionID tax certificate ID
+ExemptTaxAmount fix value = 0 (not supported)
+ReasonCode x reason code for the tax exemption
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+GK Software SE 18 / 47
+
+=== PAGE 19 ===
+TaxOverride
+Attributes
+Attribute optional Description Comment
+customExtension x Any attributes can be added to the XML.
+XML-elements
+XML element optional Description Comment
+OriginalPercent original tax percentage
+OriginalTaxAmount original tax amount
+NewTaxPercent new tax percentage
+NewTaxAmount new tax amount
+ReasonCode x reason code for the tax override
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+TransactionLink
+Attributes
+Attribute optional Description Comment
+ReasonCode x Possible values:
+• SES:Order
+• SES:OrderQuantityChange
+XML-Elements
+XML element optional Description Comment
+RetailStoreID retail store number of the original transaction
+WorkstationID workstation/POS number of the original
+transaction
+SequenceNumber receipt number of the original transaction
+LineItemSequenceNumber x line item sequence number of the original line
+item
+BusinessDayDate date of business day of the original
+transaction
+BeginDateTime begin date and time of the original
+transaction
+EndDateTime x end date and time of the original transaction
+SES:InternalSequenceNumber x won't be created
+SES:ReceiptDateTime x receipt date and time of the original
+transaction
+SES:InternalTransactionID universally unique identifier (UUID) of the
+original transaction
+customExtension x Any elements can be added to the XML.
+Foodservice
+Attributes
+Attribute optional Description Comment
+DestinationType x won't be created
+SalesMetrics x won't be created
+ProcessMode x won't be created
+XML-elements
+XML element optional Description Comment
+TableSection x won't be created
+TableID x identifier of the table
+SeatID x won't be created
+PartyName x won't be created
+PartySize x won't be created
+Tray x won't be created
+CheckInTime x won't be created
+CheckOutTime x won't be created
+OrderTime x won't be created
+DelayDateTime x won't be created
+CookStartTime x won't be created
+CookEndTime x won't be created
+ServeTime x won't be created
+Gratuity x won't be created
+Attribute:
+GK Software SE 19 / 47
+
+=== PAGE 20 ===
+• Currency
+• ForeignAmount
+TableCharge x won't be created
+Attribute:
+• Currency
+• ForeignAmount
+SES:ExternalReceiptReferenceList
+XML-elements (in sub element ExternalReceiptReference)
+XML element optional Description Comment
+SES:ItemOrigin x possible values:
+• 06 (offline rebooking of suspended
+position)
+• 05 (empties)
+• 04 (scale)
+• otherwise: type code of line item
+association (e.g. SUSP - suspend,
+RETU - return, LIRE - line item
+repetition, DEPO - deposit)
+SES:ReceiptReferenceNumber references to external document (invoice;
+customer order etc.)
+SES:ExternalTransactionOfflineRede x
+mptionFlag
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+SES:GiftCertificateData
+will be created only in case of gift certificate line item
+XML-Elements
+Attribute optional Description Comment
+SES:GiftCertificateType x possible values:
+• SES:PaperGiftCertificate
+• SES:ElectronicGiftCertificate
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom15 XXCustom field from 01 to 15.
+customExtension x Any elements can be added to the XML.
+SES:SalesOrderData
+XML-Elements
+Attribute optional Description Comment
+SES:SpecialOrderSystem x possible values:
+• ERP
+• Store
+SES:SpecialOrderType x possible values:
+• Reservation
+• SalesSelection
+• Pickup
+• Delivery
+• ImmediatePickup
+• SES:Layaway
+SES:SpecialOrderPositionNumber x will be created only in case of external
+position numbers of customer order
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom15 XXCustom field from 01 to 15.
+customExtension x Any elements can be added to the XML.
+Return
+Attributes
+• See Sale.
+GK Software SE 20 / 47
+
+=== PAGE 21 ===
+XML-Elements
+• See Sale.
+The only deviations compared to Sale are the following:
+XML element optional Description Comment
+TransactionLink x XML-container: reference to the original sales see TransactionLink
+transaction and line item
+SES:ReasonCode x Return reason code (default: "0000").
+Attribute:
+• ReasonType - fix value:
+o "Return"
+TransactionLink
+Attributes
+Attribute optional Description Comment
+ReasonCode x fix value
+"Return"
+XML-elements
+XML element optional Description Comment
+RetailStoreID retail store number of the original transaction
+WorkstationID workstation/POS number of the original
+transaction
+SequenceNumber receipt number of the original transaction
+LineItemSequenceNumber x line item sequence number of the original line
+item
+BusinessDayDate date of business day of the original
+transaction
+BeginDateTime begin date and time of the original
+transaction
+EndDateTime x won't be created
+SES:InternalSequenceNumber x won't be created
+SES:ReceiptDateTime x won't be created
+SES:InternalTransactionID universally unique identifier (UUID) of the
+original transaction
+customExtension x Any elements can be added to the XML.
+Rounding
+Attributes
+Attribute optional Description Comment
+Currency x won't be created
+ForeignAmount x won't be created
+SES:Rounding
+XML-Elements
+XML element optional Description Comment
+SES:RoundingTypeCode type of the rounding. Possible values:
+• 00 (subtotal rounding)
+• 01 (tender change rounding)
+SES:Amount rounding amount
+SES:RoundingDirection rounding direction. Possible values:
+• Up
+• Down
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+GK Software SE 21 / 47
+
+=== PAGE 22 ===
+Voids
+XML-Elements
+XML element optional Description Comment
+ItemLink see ItemLink
+ItemLink
+Attributes
+Attribute optional Description Comment
+ReasonCode fix value:
+"Voided"
+XML-Elements
+XML element optional Description Comment
+SequenceNumber the same content as in
+Transaction.SequenceNumber
+LineItemSequenceNumber LineItem SequenceNumber of the voided
+original position
+SES:VoidReasonCode Void reason code
+default: "0000"
+attributes:
+• ReasonType "Void" |
+"SES:BelatedVoid" |
+"SES:BelatedInternalVoid"
+• Description
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+LoyaltyReward
+XML-Elements
+XML element optional Description Comment
+PromotionID x description of receipt condition
+ReasonCode reason code according db entry
+default: "0000"
+choice PointsAwarded x will be created only in case of
+existing bonus points
+GiftCertificate x XML-container: created in case of a see GiftCertificate
+discount as gift certificate
+SES:Voucher x XML-container: created in case of a see SES:Voucher
+discount as coupon
+SequenceNumber will be used only in case of positon
+specific bonus points.
+Continuous number over all
+LoyaltyReward elements of one line
+item, starting with "1".
+SES:PriceDerivationRule x XML-container: price derivation rule see
+data SES:PriceDerivationRule
+SES:CustomerCardNumber x won't be created
+SES:IncentiveTurnover x won't be created
+SES:AliasType x won't be created
+SES:RebateMethod possible values:
+• type code of the position
+condition
+• otherwise "0000"
+SES:RebateID possible values:
+• "0" in case of non loyalty
+trigger
+• external promotion ID (first
+40 digits without any
+prefix)
+SES:ExternalOfferID x identifier of the external offer in case
+of loyalty trigger
+CST:XXCustom01 ... x A separate element is created for
+CST:XXCustom05 every XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the
+GK Software SE 22 / 47
+
+=== PAGE 23 ===
+XML.
+GiftCertificate
+Attributes
+Attribute optional Description Comment
+MediaType possible values:
+• 'SES:ElectronicGiftCertificate'
+• 'SES:PaperGiftCertificate'
+XML-Elements
+XML element optional Description Comment
+SerialNumber x gift card number
+FaceValue gift card value
+GiftCertificateID empty string
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+SES:Voucher
+XML-Elements
+XML element optional Description Comment
+SES:VoucherID coupon number
+SES:Amount coupon amount
+SES:CouponSerial x XML-container: will be created only in case of see SES_CouponSerial
+existing coupon serial
+customExtension x Any elements can be added to the XML.
+SES:CouponSerial
+XML element optional Description Comment
+SES:CouponSerialNumber The coupon serial number.
+SES:BookingSuccessfulTypeCode x Determines whether the coupon redemption
+was successfully posted to the Couponing
+Service.
+• null - in case that no Couponing
+Service is used
+• 00 - ok
+• 01 - error
+SES:BookingTransactionUUID x The couponing service transaction ID.
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom30 XXCustom field from 01 to 30.
+customExtension x Any elements can be added to the XML.
+SES:PriceDerivationRule
+Attributes
+Attribute optional Description Comment
+customExtension x Any attributes can be added to the XML.
+XML-Elements
+XML element optional Description Comment
+PriceDerivationRuleID first 40 digits of price derivation rule ID
+Eligibility x XML-container: will be created only in case see Eligibility
+of existing coupon number
+Amount attribute:
+• Action
+possible values:
+o "Substract" in case of
+negative amount
+o "Add" in case of positive
+amount
+SES:Origin x "ORIGIN" in case of loyalty trigger
+SES:AppliedQuantity x will be created only in case of applied
+quantity
+SES:RuleDescription x will be created in case of existing rule
+description
+GK Software SE 23 / 47
+
+=== PAGE 24 ===
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom15 XXCustom field from 01 to 15.
+customExtension x Any elements can be added to the XML.
+Eligibility
+XML element optional Description Comment
+ReferenceID x coupon reference number
+attribute:
+• Type (fix value: "StoreCoupon")
+SES:CouponSerialNumber x won't be created
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+Tax
+Attributes
+Attribute optional Description Comment
+TaxType x fix value:
+"Common"
+TaxSubType x "ZeroRated" in case of rate of tax = 0
+otherwise "Standard"
+TypeCode x possible values:
+• "Refund"
+• "Sale"
+customExtension x Any attributes can be added to the XML.
+XML-Elements
+XML element optional Description Comment
+TaxAuthority x ID of the tax authority
+TaxableAmount x taxable amount without sign
+Amount x tax amount
+Percent x tax percent
+TaxExemption x XML-container: created in case of a tax see TaxExemption
+exemption
+TaxOverride x not used for the tax on transaction level
+TaxGroupID x tax group ID
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+TaxExemption
+Attributes
+Attribute optional Description Comment
+customExtension x Any attributes can be added to the XML.
+XML-Elements
+XML element optional Description Comment
+CustomerExemptionID tax certificate ID
+ExemptTaxAmount fix value = 0 (not supported)
+ReasonCode x reason code for the tax exemption
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+Tender
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+TypeCode TypeCode
+possible values:
+• "Refund"
+• "Sale"
+TenderDescription x Tender description
+GK Software SE 24 / 47
+
+=== PAGE 25 ===
+customExtension x Any attributes can be added to the XML.
+XML-elements
+XML element optional Description Comment
+TenderID x Tender ID for main currency or
+foreign currency
+Amount amount in main currency;
+in case of foreign currency following
+attributes are used:
+• Currency (optional)
+• ForeignAmount (optional)
+TenderChange x will be created only within
+RetailTransaction
+Cashback x will be created only within
+RetailTransaction
+amount in main currency;
+in case of foreign currency following
+attributes are used:
+• Currency (optional)
+• ForeignAmount (optional)
+Authorization x XML-container: will be created for see Authorization
+tenders with external authorzation
+Tip x The amount being collected as tip
+for serving staff in main currency;
+in case of foreign currency following
+attributes are used
+• Currency (optional)
+• ForeignAmount (optional)
+ForeignCurrency x XML-container: will be created only see ForeignCurrency
+in case of foreign currency
+choice Check x XML-container: will be created only see Check
+in usage of check
+CreditDebit x XML-container: will be created only see CreditDebit
+in usage of credit debit
+Coupon x XML-container: will be created only see Coupon
+in usage of coupon
+Voucher x XML-container: will be created only see Voucher
+in usage of voucher
+SES:LoyaltyRedemption x XML-container: will be created only see
+in usage of loyalty redemption SES:LoyaltyRedemption
+CST:XXCustom01 ... x A separate element is created for
+CST:XXCustom15 every XXCustom field from 01 to 15.
+customExtension x Any elements can be added to the
+XML.
+TenderChange
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+customExtension x Any attributes can be added to the XML.
+XML-elements
+XML element optional Description Comment
+TenderID x Tender ID for main currency or foreign currency
+Amount amount in main currency
+in case of foreign currency following attributes are
+used:
+• Currency (optional)
+• ForeignAmount (optional)
+Authorization
+Attributes
+Attribute optional Description Comment
+HostAuthorized x boolean value depends on code of authoization
+code:
+e.g.
+- ‚1‘ = EDD authorization = offline debit memo
+- ‚2‘ =
+GK Software SE 25 / 47
+
+=== PAGE 26 ===
+ODD online or POG (POS without payment
+guarantee) = online debit memo
+(if applicable, credit card online for special
+terminal types, e.g. REA)
+- ‚8‘ = Credit card online payment
+- NULL = The terminal is not connected to the
+cash register.
+• true (3, 8,10 or 11)
+• false (with all other codes of
+authorization type)
+ElectronicSignature x boolean value depends on code of authoization
+code:
+e.g.
+- ‚1‘ = EDD authorization = offline debit memo
+- ‚2‘ =
+ODD online or POG (POS without payment
+guarantee) = online debit memo
+(if applicable, credit card online for special
+terminal types, e.g. REA)
+- ‚8‘ = Credit card online payment
+- NULL = The terminal is not connected to the
+cash register.
+• true (3, 10 or 11)
+• false (with all other codes of
+authorization type)
+ForceOnline x boolean value depends on code of transaction
+type
+e.g.
+- ‚0‘ = offline
+- ‚1‘ = online
+• true (online)
+• false (offline)
+customExtension x Any attributes can be added to the XML.
+XML-Elements
+XML element optional Description Comment
+RequestedAmount x absolut value of transaction
+in case of foreign currency following attributes
+are used:
+Currency (optional)
+ForeignAmount (optional)
+AuthorizationCode code of authorization code
+Payment Terminal Type Codes - 01180100027
+ReferenceNumber x number of transaction
+AuthorizationDateTime x timestamp of authorization
+AuthorizingTermID x ID of used terminal
+SES:ActivationSequenceNumber x activation sequence number
+SES:TransactionReferenceNumber x Transaction Reference Number
+used for transaction types ‘Purchase
+Reservation’ and ‘Reservation Adjustment’
+SES:TransactionType transaction type
+possible values:
+• credit
+• debit
+SES:TerminalTenderDescription x terminal tender description
+ApplicationID x application identifier
+SES:EncryptedPAN x Application PAN (coded)
+SES:TransactionCurrencyCode x transaction currency
+SES:TerminalTransactionToken x unique number assigned by the payment
+processor when an EFT transaction is
+processed
+SES:ApprovalCode x terminal authorization number
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+ForeignCurrency
+XML elements
+XML element optional Description Comment
+CurrencyCode x code of foreign currency
+OriginalFaceAmount origin amount in foreign currency
+GK Software SE 26 / 47
+
+=== PAGE 27 ===
+ExchangeRate x exchange rate, rounded to 5 decimals
+Check
+Attributes
+Attribute optional Description Comment
+customExtension x Any attributes can be added to the XML.
+XML elements
+XML element optional Description Comment
+BankID x bank ID
+CheckNumber x cheque number will not be exported anymore
+(SES:CheckNumber have to be
+used instead)
+AccountNumber x account number
+CheckCardNumber x bank card number
+FullMICR x full string of characters read from MICR
+strip
+SES:BankIdentifierCode x bank identifier code (SWIFT code)
+SES:InternationalBankAccountN x international bank account number
+umber
+SES:CheckNumber x cheque number
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+CreditDebit
+Attributes
+Attribute optional Description Comment
+customExtension x Any attributes can be added to the XML.
+XML-elements
+XML element optional Description Comment
+IssuerIdentificationNumber x bank ID
+PrimaryAccountNumber account number
+bank card number (default "0000"
+IssueSequence x card suffix
+ExpirationDate x expiration date of card
+ReconciliationCode x code of transaction result
+Payment Terminal Type Codes -
+01180100027
+StartDate x date of transaction start
+SES:TraceNumber x trace number
+SES:InternationalBankAccountNumbe x IBAN - International Bank Account Number
+r for SEPA Direct Debit (ELV)
+SES:BankIdentifierCode x BIC - Bank Identifier Code. Also known as
+SWIFT Code for SEPA Direct Debit (ELV).
+SES:CreditorID x Creditor ID for SEPA Direct Debit (ELV)
+SES:MandateID x Mandate ID for SEPA Direct Debit (ELV)
+SES:PrenotificationText x Pre-notification text for SEPA Direct Debit
+(ELV)
+customExtension x Any elements can be added to the XML.
+Coupon
+Attributes
+Attribute optional Description Comment
+customExtension x Any attributes can be added to the XML.
+XML-elements
+XML element optional Description Comment
+Quantity fix value: 1
+PrimaryLabel coupon number
+ManufacturerID x manufacturer ID that is funding the offer in
+case of manufacturer coupons
+PromotionCode x offer number (promotion code) in case of
+manufacturer coupons
+SES:CouponSingleAmount single amount of coupon
+GK Software SE 27 / 47
+
+=== PAGE 28 ===
+SES:TaxPercent rate of taxation
+SES:Origin flag internal/external coupon
+SES:ReferenceItemList XML-container: will be created for each see SES:ReferenceItemList
+linked item
+SES:CouponSerialNumber x won't be created
+customExtension x Any elements can be added to the XML.
+SES:ReferenceItemList
+XML-elements
+XML element optional Description Comment
+ItemID EAN of discounted item
+ItemQuantity quantity of discounted item
+ItemRebateShare rebate share of item
+ItemLink link to positionnumber of item in POSLog
+attribute:
+LinkType
+fix value: "Coupon"
+customExtension x Any elements can be added to the XML.
+Voucher
+Attributes
+Attribute optional Description Comment
+TypeCode possible values:
+SES:ElectronicGiftCertificate
+SES:PaperGiftCertificate
+XML-elements
+XML element optional Description Comment
+SerialNumber EAN of voucher
+SES:LoyaltyRedemption
+Attributes
+Attribute optional Description Comment
+customExtension x Any attributes can be added to the XML.
+XML-elements
+XML element optional Description Comment
+PointsRedeemed redeemed bonus points
+TransactionID ID of bonus point redeem transaction
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+SES:OperatorBypassApproval
+Attributes
+Attribute optional Description Comment
+ApprovalTypeCode shows, how authorization was triggered
+fix value: "CODE" (operator number)
+XML-Elements
+XML element optional Description Comment
+ApprovalCode x won't be created
+ApproverID x ID of authorizing operator
+attribute:
+• WorkerID (optional)
+• ApproverName (optional)
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+GK Software SE 28 / 47
+
+=== PAGE 29 ===
+SES:ReceiptPositionAddonList
+XML-Elements (in sub element SES:Addon)
+XML element optional Description Comment
+AddonPos x addon position
+Key addon name
+Value addon text
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+SES:LineItemBinaryDataList
+XML-Elements
+XML element optional Description Comment
+BinaryData see BinaryData
+4.3.6.2 BinaryData
+XML-Elements
+XML element optional Description Comment
+Name The name of the binary data entry.
+Content The binary object (Base64 encoded).
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+4.3.6.3 Customer
+Element will be created only in case of customer assignment.
+Attributes
+Attribute optional Description Comment
+customExtension x Any attributes can be added to the XML.
+XML-elements
+XML element optional Description Comment
+CustomerID x will be created in case of existing customer
+id
+CustomerName x XML-container: customer name see CustomerName
+Address x XML-container: customer address see Address
+Telephone x XML-container: customer telephone see Telephone
+number
+EMail x XML-container: customer email address see Email
+Age x won't be created
+Birthdate x birthdate
+Gender x gender
+SES:CustomerType possible values:
+• "EM" in case of employees
+• adress type
+SES:CustomerTypeDescription x adress type desription
+SES:CustomerIdentifier x will be created only in case of existing
+adress type
+SES:EntryMethod x won't be created in case of employee
+customers
+for all other customers following values are
+possible:
+• "Scanned"
+• "SES:Searched"
+• "Keyed"
+depends on registration source
+SES:CustomerLockingTypeCode x customer locking type code
+SES:CustomerTaxID x customer tax ID
+SES:CustomerGenericFlag x customer generic flag
+SES:CustomerBusinessNumber x customer business number
+SES:CustomerLocationNumber x customer location number
+GK Software SE 29 / 47
+
+=== PAGE 30 ===
+SES:CustomerRequisationRequired x customer requisation required flag
+SES:CustomerBuyerRequiredFlag x customer buyer required flag
+SES:CustomerBuyerName x customer buyer name
+SES:CustomerContactRequiredFlag x customer contact required flag
+SES:CustomerContactPersonName x customer contact person name
+SES:CustomerGroup x will be created in case of existing customer
+group
+attributes:
+• CST:XXCustom01 ...
+CST:XXCustom05 (optional)
+• customExtension (optional)
+SES:CustomerGroupDefaultBonusP x customer group default bonus points count
+ointsCount
+SES:ParentCustomerID x Number of the customer to which this
+buyer / contact person belongs.
+SES:ParentCustomerName1 x First name line of the customer to which
+this buyer / contact person belongs.
+SES:ParentCustomerName2 x Second name line of the customer to which
+this buyer / contact person belongs.
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+CustomerName
+XML-elements
+XML element optional Description Comment
+Salutation x salution of customer
+Name x customer name
+attribute:
+• Location (optional)
+possible values:
+o "First"
+o "Last"
+FullName string consisting of max. both customer name entries or of organization name
+Adress
+XML-elements
+XML element optional Description Comment
+AddressLine attribute:
+• TypeCode (optional)
+possible values:
+o "Street"
+o "SES:District"
+o "SES:AdressLine1"
+o "SES:AdressLine2"
+City x city
+PostalCode x postal code
+Country x country
+Name x name of organisation
+State x won't be created
+Telephone
+Attributes
+Attribute optional Description Comment
+TypeCode x possible values:
+• "Work"
+• "Mobile"
+• "Home"
+• "WorkFax"
+XML-Elements
+XML element optional Description Comment
+FullTelephoneNumber telephone number
+GK Software SE 30 / 47
+
+=== PAGE 31 ===
+Email
+XML-Elements
+XML element optional Description Comment
+EMailAddress email adress
+4.3.6.4 TransactionLink
+Attributes
+Attribute optional Description Comment
+ReasonCode x Possible values:
+• Voided
+• SES:Invoice
+• SES:OfflineRebooking
+• LayAway
+• SES:RetrievedSuspend
+• SES:Replace
+XML-Elements
+XML element optional Description Comment
+RetailStoreID retail store number of the original transaction
+WorkstationID workstation/POS number of the original
+transaction
+SequenceNumber receipt number of the original transaction
+LineItemSequenceNumber x won't be created
+BusinessDayDate date of business day of the original
+transaction
+BeginDateTime begin date and time of the original
+transaction
+EndDateTime x end date and time of the original transaction
+SES:InternalSequenceNumber x won't be created
+SES:ReceiptDateTime x receipt date and time of the original
+transaction
+SES:InternalTransactionID universally unique identifier (UUID) of the
+original transaction
+customExtension x Any elements can be added to the XML.
+4.3.6.5 SES:CouponSummary
+XML-Elements
+SES:CouponNumber The coupon number
+SES:InputCount Count of registered coupons
+SES:AppliedCount x Number of used coupons
+SES:CustomerID x Identifier of the customer
+SES:CustomerAddressTypeCo x The customer type code
+de
+SES:CouponSerialSummary x XML-container: will be created see
+for each coupon serial SES:CouponSerialSummary
+CST:XXCustom01 ... x A separate element is created
+CST:XXCustom05 for every XXCustom field from
+01 to 05.
+customExtension x Any elements can be added to
+the XML.
+XML element optional Description Comment
+SES:CouponSerialSummary
+XML-Elements
+XML element optional Description Comment
+SES:CouponSerialNumber The coupon serial number.
+SES:BookingSuccessfulTypeCode x Determines whether the coupon redemption
+was successfully posted to the Couponing
+Service.
+• null - in case that no Couponing
+Service is used
+• 00 - ok
+• 01 - error
+GK Software SE 31 / 47
+
+=== PAGE 32 ===
+SES:BookingTransactionUUID x The couponing service transaction ID
+SES:UsedFlag x Defines if the coupon serial triggered a
+promotion price derivation rule.
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom30 XXCustom field from 01 to 30.
+customExtension x Any elements can be added to the XML.
+4.3.7 TenderControlTransaction
+XML-elements
+XML element optional Description Comment
+choice SES:TenderLoan XML-container: information about see SES:TenderLoan
+change transaction (tender transfer
+from safe to drawer)
+Deposit XML-container: information about see Deposit
+safe bag or bank deposit transaction
+(tender transfer from safe to bank)
+TillSettle XML-container: information about see TillSettle
+drawer settlement
+transaction (during accounting) or
+drawer cash check transaction
+SafeDrop XML-container: information about see SafeDrop
+safe drop transaction (cash transfer
+from bank to safe)
+SES:TenderPickup XML-container: information about see SES:TenderPickup
+tender pickup transaction (tender
+transfer from drawer to safe)
+SES:PaidIn XML-container: information about see SES:PaidIn
+paid in transaction (tender deposit
+into drawer or into safe) or safe
+opening balance transaction (safe
+amount at the beginning of the
+accounting period) or safe
+correction (pay-in) transaction
+SES:PaidOut XML-container: information about see SES:PaidOut
+paid out transaction (tender
+disbursement from drawer or from
+safe) or safe correction (pay-out)
+transaction
+SES:TenderInterchange Will not be generated. Tender
+exchange will be exported as
+RetailTransaction.
+SES:TenderLoanCarriedFor XML-container: information about see
+ward "tender loan/change carried forward" SES:TenderLoanCarriedFo
+transaction (tender amount in the rward
+drawer at the beginning of an
+accounting period)
+SES:SafeSettle XML-container: information about see SES:SafeSettle
+safe settlement transaction (safe
+accounting)
+SES:TransactionLink x XML-container: reference to another see TransactionLink
+transaction; will be created in
+following cases:
+• voiding receipt - link to
+original receipt
+SES:ReceiptPositionAddonL x XML-container: contains all see
+ist information about position addons SES:ReceiptPositionAddon
+List
+SES:AccountedOperatorID x OperatorID of the operator, for which
+exists a one-to-one assignment of
+operator to drawer
+Attribute:
+• Name (optional)
+CST:XXCustom01 ... x A separate element is created for
+CST:XXCustom05 every XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the
+XML.
+4.3.7.1 SES:TenderLoan
+Attributes
+GK Software SE 32 / 47
+
+=== PAGE 33 ===
+Attribute optional Description Comment
+TenderType Tender type
+TenderDescription x Tender description
+XML-Elements
+XML element optional Description Comment
+SES:Totals XML-container: sum of tenders of see SES:Totals
+tendergroup cash in main currency
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+SES:Totals
+XML-Elements
+XML element optional Description Comment
+Amount amount = 0 in case of no tender line item in
+the transaction.
+in case of foreign currency following attributes
+are used:
+• Currency (optional)
+• ForeignAmount (optional)
+Reason x will be created in case of change correction
+optional attributes:
+• Description
+• Name
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+4.3.7.2 Deposit
+XML-Elements
+XML element optional Description Comment
+Bank not used (empty string)
+Account not used (empty string)
+BagID In case of safe bag: safe bag number
+In case of bank deposit: not used (empty
+string)
+Amount amount in main currency
+in case of foreigncurrency following
+attributes are used:
+• Currency (optional)
+• ForeignAmount (optional)
+Depositor employee who transferred safe bag to
+bank
+following attribut is used:
+• WorkerID
+DepositDetail XML-container: contains totals of see DepositDetail
+tenders
+SES:DepositForeignCurrency x XML-container: will be created if there see
+are tenders used in foreign currency SES:DepositForeignCurrency
+SES:SafebagStatus x 1 = created safe bag
+2 = deleted safe bag
+3 = safe bag was picked up
+4 = created safe bag caused by change
+order
+SES:SafebagDocumentNumber x will be created if safe bag document
+number exist
+SES:PickupSafebagNumber x will be created in case of
+SES:SafebagStatus = 3
+SES:SafebagTypeCode x 1 = common safe bag
+3 = safe bag caused by change order
+SES:StatusTimestamp x timestamp of the safe bag status
+change
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+GK Software SE 33 / 47
+
+=== PAGE 34 ===
+DepositDetail
+XML-elements
+XML element optional Description Comment
+TenderTotal amount of tender of picked up safe bag in main
+currency
+includes attribut
+• TenderType
+Reason fix value "0000"
+SES:DepositForeignCurrency
+XML-elements
+XML element optional Description Comment
+TenderTotal amount of tender of picked up safe bag in main
+currency
+includes attribut
+• TenderType
+• Currency
+• ForeignAmount (amount in foreign
+currency)
+4.3.7.3 TillSettle
+XML-elements
+XML element optional Description Comment
+TenderSummary XML-container: will be created for each see TenderSummary
+tender in the transaction
+SES:TransactionCategoryCode x Indicator of the category of the drawer
+counting transaction:
+"CHECK" = cash check transaction
+"SETTLE" = settlement transaction (during
+accounting)
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+TenderSummary
+XML-elements
+XML element optional Description Comment
+Over XML-container: will be created if count see Over
+difference >=0
+Short XML-container: will be created if count see Short
+difference <0
+SES:Nominal x XML-container: closing/target balance of see SES:Nominal
+the drawer
+SES:Ending x XML-container: counted/actual balance of see SES:Ending
+the drawer
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+Over
+XML-Elements
+XML element optional Description Comment
+TenderType Tender type
+Amount positive amount of the drawer count difference, in
+main currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x will be created, if there is count difference >=0
+GK Software SE 34 / 47
+
+=== PAGE 35 ===
+Short
+XML-Elements
+XML element optional Description Comment
+TenderType Tender type
+Amount negative amount of the drawer count difference, in
+main currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x will be created, if there is count difference <0
+SES:Nominal
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+TypeCode TypeCode to distinguish between positive and
+negative amount
+possible values:
+• "Refund" - negative
+• "Sale" - positive
+XML-elements
+XML element optional Description Comment
+Amount closing/target amount of the drawer, in main
+currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x created in case of Count <> 0
+SES:Ending
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+TypeCode TypeCode to distinguish between positive and
+negative amount
+possible values:
+• "Refund" - negative
+• "Sale" - positive
+XML-elements
+XML element optional Description Comment
+Amount counted/actual amount of the drawer, in main
+currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x created in case of Count <> 0
+4.3.7.4 SafeDrop
+XML-Elements
+XML element optional Description Comment
+DropAmount amount of cash receipt
+EnvelopeID empty string because of mandatory field
+DropNumber empty string because of mandatory field
+Tender x won't be created
+4.3.7.5 SES:TenderPickup
+XML-Eleements
+GK Software SE 35 / 47
+
+=== PAGE 36 ===
+XML element optional Description Comment
+SES:TenderAmount amount of tender in main currency
+attributes:
+• TenderType
+• TypeCode (optional) will be created
+only in case of "Refund"
+• Currency (optional) will be created
+only in case of foreign currency
+• ForeignAmount (optional) will be
+created only in case of foreign
+currency
+• TenderDescription (option) will be
+created only in case of tender
+description
+• CST:XXCustom01 ...
+CST:XXCustom05 (optional)
+• customExtension (optional)
+SES:TotalAmount sum of all tenders
+attributes:
+• TypeCode (optional) will be created
+only in case of "Refund"
+SES:Reason x won't be created
+SES:EnvelopeID x The identifier of the Envelope that was used
+for this Pickup.
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+4.3.7.6 SES:PaidIn
+XML-Elements
+XML element optional Description Comment
+SES:Amount amount of paid in
+SES:Reason entered reason for paid in
+in case of no entry: default="0000"
+SES:Tender x XML-container: will be created for each tender position of paid in see
+transaction Tender
+SES:TransactionCategoryCode x Indicator of the category of the PaidIn transaction:
+"PAYIN" = paid in transaction (tender deposit into drawer or into safe)
+"OPEN" = safe opening balance transaction
+"CORR" = safe correction transaction
+CST:XXCustom01 ... x A separate element is created for every XXCustom field from 01 to
+CST:XXCustom05 05.
+customExtension x Any elements can be added to the XML.
+4.3.7.7 SES:PaidOut
+XML-Elements
+XML element optional Description Comment
+Amount amount of paid out
+Reason entered reason for paid out
+in case of no entry: default="0000"
+Tender x XML-container: will be created for each tender see Tender
+position of paid out transaction
+SES:TransactionCategoryCode x Indicator of the category of the PaidOut
+transaction:
+"PAYOUT" = paid out transaction (tender
+disbursement from drawer or from safe)
+"CORR" = safe correction transaction
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+4.3.7.8 SES:TenderInterchange
+Will not be generated. Tender exchange will be exported as RetailTransaction.
+GK Software SE 36 / 47
+
+=== PAGE 37 ===
+4.3.7.9 SES:TenderLoanCarriedForward
+XML-Elements
+XML element optional Description Comment
+Amount carryforward of tender loan ending balance of last accounting
+period will be the opening balance of
+next accounting period
+CST:XXCustom01 ... x A separate element is created for
+CST:XXCustom05 every XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the
+XML.
+4.3.7.10 SES:SafeSettle
+XML-elements
+XML element optional Description Comment
+TenderSummary XML-container: will be created for each see TenderSummary
+tender in the safe accounting transaction
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+TenderSummary
+XML-elements
+XML element optional Description Comment
+Over XML-container: will be created if count see Over
+difference >=0
+Short XML-container: will be created if count see Short
+difference <0
+SES:Nominal x XML-container: closing/target balance of see SES:Nominal
+the safe
+SES:Ending x XML-container: counted/actual balance of see SES:Ending
+the safe
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+Over
+XML-Elements
+XML element optional Description Comment
+TenderType Tender type
+Amount positive amount of safe count difference, in main
+currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x will be created, if there is count difference >=0
+Short
+XML-Elements
+XML element optional Description Comment
+TenderType Tender type
+Amount negative amount of safe count difference, in main
+currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x will be created, if there is count difference <0
+GK Software SE 37 / 47
+
+=== PAGE 38 ===
+SES:Nominal
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+TypeCode TypeCode to distinguish between positive and
+negative amount
+possible values:
+• "Refund" - negative
+• "Sale" - positive
+XML-elements
+XML element optional Description Comment
+Amount closing/target amount of the safe, in main
+currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x created in case of Count <> 0
+SES:Ending
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+TypeCode TypeCode to distinguish between positive and
+negative amount
+possible values:
+• "Refund" - negative
+• "Sale" - positive
+XML-elements
+XML element optional Description Comment
+Amount counted/actual amount of the safe, in main
+currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x created in case of Count <> 0
+4.3.8 ControlTransaction
+XML elements
+XML element optional Description Comment
+ReasonCode x reason code in case of existing reason
+choice BusinessEOD XML-container: created in case of an see BusinessEOD
+EOD transaction
+TillEOD XML-container: total/summary values see TillEOD
+(drawer related)
+POSStartup won't be created
+POSShutdown won't be created
+NoSale time stamp for NoSale
+OperatorLock won't be created
+OperatorUnLock won't be created
+OperatorSignOn XML-container: operator log-in see
+OperatorSignOn/Off
+OperatorSignOff XML-container: operator log-out see
+OperatorSignOn/Off
+SES:CashierStatistics XML-container: cashier statistics see
+values SES:CashierStatistics
+includes statistics about accounting
+period of drawer
+SES:StoreEODSummary XML-container: total/summary values see
+(store related) SES:StoreEODSumma
+includes sum values about accounting ry
+period of store
+GK Software SE 38 / 47
+
+=== PAGE 39 ===
+SES:StartTraining won't be created
+SES:EndTraining won't be created
+SES:AwardOrder won't be created
+SES:LoyaltyPointsInformatio won't be created
+n
+SES:TaxRefund XML-container: tax refund issue values see SES:TaxRefund
+SES:OtherTransactionType created for all transaction types with
+which won't be exported in other tag of
+POSLog. So its sure that all
+transactions will be exported, without
+any leak.
+SES:ForcedSignOffFlag x Flag, created in case of
+OperatorSignOff
+"true", if forced logout
+"false", if logout
+SES:ForcedSignOffWorkstati x Identifier of the workstation, which is
+onID forced to log out (created only in case
+of forced logout).
+SES:AccountedOperatorID x OperatorID of the operator, for which
+exists a one-to-one assignment of
+operator to drawer
+Attribute:
+• Name (optional)
+SES:TransactionLink x XML-container: reference to another see TransactionLink
+transaction; will be created in following
+cases:
+• invoice duplicate - link to
+original invoice
+• tax refund issue - link to
+original sales receipt (links to
+multiple sales receipts
+possible)
+• voiding receipt - link to
+voided original receipt (e.g.
+voided pay-in/pay-out or
+voided tax refund issue)
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+4.3.8.1 BusinessEOD
+XML-Elements
+XML element optional Description Comment
+StartDateTimestamp date and time of beginning of business day (of
+accounting period)
+4.3.8.2 TillEOD
+XML-elements
+XML element optional Description Comment
+SessionSettle XML-container: includes sum values per see SessionSettle
+accounting period of /store
+SessionSettle
+XML-elements
+XML element optional Description Comment
+TenderSummary x XML-container: includes sum values of see TenderSummary
+tenders per accounting period of /store
+SES:SalesSummary x XML-container: includes sum values of sales see SES:SalesSummary
+per accounting period of /store
+SES:RebateSummary x Not generated at this time.
+SES:TaxSummary x XML-container: includes sum values of see SES:TaxSummary
+taxes per accounting period of /store
+TenderSummary
+XML element optional Description Comment
+GK Software SE 39 / 47
+
+=== PAGE 40 ===
+Beginning x XML-container: opening balance see Beginning
+Pickup x XML-container: tender pickup see Pickup
+Over XML-container: created in case of see Over
+positive difference
+Short XML-container: created in case of see Short
+negative difference
+SES:Nominal x XML-container: closing/target balance see SES:Nominal
+of drawer
+SES:SalesTenderNominal x XML-container: tender totals of all see SES:SalesTenderNominal
+sales/return receipts
+SES:Ending x XML-container: counted/actual balance see SES:Ending
+of drawer
+customExtension x Any elements can be added to the XML.
+Beginning
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+XML-Elements
+XML element optional Description Comment
+Amount opening balance in main currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x created in case of Count <> 0
+Pickup
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+XML-Elements
+XML element optional Description Comment
+Amount manual pickup amount in main currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x created in case of Count <> 0
+Over
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+XML-elements
+XML element optional Description Comment
+Amount positive amount of the drawer count difference, in
+main currency.
+in case of foreign currency following attributes are
+used:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x created in case of Count <> 0
+Short
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+XML-elements
+GK Software SE 40 / 47
+
+=== PAGE 41 ===
+XML element optional Description Comment
+Amount negative amount of the drawer count difference, in
+main currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x created in case of Count <> 0
+SES:Nominal
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+TypeCode TypeCode to distinguish between positive and
+negative amount
+possible values:
+• "Refund" - negative
+• "Sale" - positive
+XML-elements
+XML element optional Description Comment
+Amount closing/target amount of the safe, in main
+currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x created in case of Count <> 0
+SES:SalesTenderNominal
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+TypeCode TypeCode to distinguish between positive and
+negative amount
+possible values:
+• "Refund" - negative
+• "Sale" - positive
+XML-elements
+XML element optional Description Comment
+Amount tender totals of all sales/return receipts, in main
+currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+• ForeignAmount (optional)
+Count x created in case of Count <> 0
+SES:Ending
+Attributes
+Attribute optional Description Comment
+TenderType Tender type
+TypeCode TypeCode to distinguish between positive and
+negative amount
+possible values:
+• "Refund" - negative
+• "Sale" - positive
+XML-elements
+XML element optional Description Comment
+Amount counted/actual amount of the safe, in main
+currency.
+In case of foreign currency following attributes are
+used additionally:
+• Currency (optional)
+GK Software SE 41 / 47
+
+=== PAGE 42 ===
+• ForeignAmount (optional)
+Count x created in case of Count <> 0
+SES:SalesSummary
+Attributes
+Attribute optional Description Comment
+TypeCode x Type code of sales transaction
+possible values:
+• "Refund"
+• "Sale"
+XML-Elements
+XML element optional Description Comment
+Amount sales of sales receipts
+Count quantity of sales receipts
+Reason possible values:
+Sales: Reason = "2001"
+Subtotal rounding: Reason = "2011"
+Sold gift certificates: Reason = "2020"
+Down payments: Reason = "3101"
+Cleared down payments: Reason = "3102"
+Invoices: Reason = "3103"
+Pay-ins: Reason = "3104"
+Pay-outs: Reason = "3201"
+attribute: Name
+fix value: "SalesID"
+SES:RebateSummary
+Not generated at this time.
+SES:TaxSummary
+Attributes
+Attribute optional Description Comment
+TenderType x Tender type
+possible values:
+• "Refund"
+• "Sale"
+XML-Elements
+XML element optional Description Comment
+Amount sales per tax code
+Count quantity of taxed positions
+SES:TaxAuthorityID ID of tax authority
+SES:TaxGroupID ID of tax group
+4.3.8.3 OperatorSignOn
+XML element optional Description Comment
+StartDateTimestamp x date and time of sign on receipt
+4.3.8.4 OperatorSignOff
+XML element optional Description Comment
+StartDateTimestamp x date and time of sign off receipt
+4.3.8.5 SES:CashierStatistics
+SessionSettle
+XML-elements
+XML element optional Description Comment
+TransactionCount x quantity of receipts with revision type = see TransactionCount
+'TRANSACTION_COUNT'
+GK Software SE 42 / 47
+
+=== PAGE 43 ===
+TotalMeasures x XML-container: includes some statistics see TotalMeasures
+LineItemVoids XML-container: includes sum and quantity see LineItemVoids
+of line item voids
+PostTransactionVoids XML-container: includes sum and quantity see PostTransactionVoids
+of post item voids
+SES:TransactionCancellations XML-container: includes sum and quantity see
+of transaction cancellations SES:TransactionCancellations
+SES:DirectLineItemVoids XML-container: includes sum and quantity see SES:DirectLineItemVoids
+of direct line item voids
+SES:AccountedOperatorID x OperatorID of the operator, for which
+exists a one-to-one assignment of
+operator to drawer
+Attribute:
+• Name (optional)
+TotalMeasures
+XML-elements
+XML element optional Description Comment
+SaleLineItemCount x won't be created
+NoSaleTransactionCount x quantity of "open Till" receipts
+LineItemScannedCount x quantity of scanned positions
+LineItemOpenDepartmentCount x quantity of value items
+RingTime x won't be created
+IdleTime x won't be created
+LockTime x won't be created
+SES:LogonTime x total time of sign on time
+SES:RegistrationTime x total time of item registration
+SES:TenderTime x total time of tender record
+SES:FailedLogonCount x won't be created
+LineItemVoids
+XML-Elements
+XML element optional Description Comment
+Amount sum of line item voids
+Count quantity of line item voids
+PostTransactionVoids
+XML-Elements
+XML element optional Description Comment
+Amount sum of post transaction voids
+Count quantity of post transaction voids
+SES:TransactionCancellations
+XML-Elements
+XML element optional Description Comment
+Amount sum of post transaction cancellations
+Count quantity of post transaction cancellations
+SES:DirectLineItemVoids
+XML-Elements
+XML element optional Description Comment
+Amount sum of direct line item voids
+Count quantity of direct line item voids
+4.3.8.6 SES:StoreEODSummary
+XML-elements
+XML element optional Description Comment
+GK Software SE 43 / 47
+
+=== PAGE 44 ===
+SessionSettle XML-container: includes sum values per see SessionSettle
+accounting period of /store
+SessionSettle
+XML-elements
+XML element optional Description Comment
+TenderSummary x Not generated at this time.
+SES:SalesSummary x XML-container: includes sum values of sales see SES:SalesSummary
+per accounting period of /store
+SES:RebateSummary x Not generated at this time.
+SES:TaxSummary x XML-container: includes sum values of taxes see SES:TaxSummary
+per accounting period of /store
+4.3.8.7 SES:TaxRefund
+Attributes
+Attribute optional Description Comment
+TypeCode x Type code of tax refund issue
+possible values:
+• "Refund"
+• "Sale"
+XML-Elements
+XML element optional Description Comment
+SES:TaxRefundDocumentID The unique identifier of the tax refund document
+returned from tax refund service.
+SES:ExternalTransactionID x A universally unique identifier (UUID) for the
+transaction in the external system, which is
+provided by the service provider.
+SES:StoreInvoiceID x Fiscal invoice number for countries, where this is
+required.
+SES:TotalGrossAmount The summarized gross amount for all sale
+transactions of this tax refund (exported as
+absolute value).
+SES:TotalTaxAmount x The summarized gross amount for all sale
+transactions of this tax refund (exported as
+absolute value).
+SES:TotalRefundAmount The resulting tax refund amount (exported as
+absolute value).
+CST:XXCustom01 ... x A separate element is created for every
+CST:XXCustom05 XXCustom field from 01 to 05.
+customExtension x Any elements can be added to the XML.
+4.3.8.8 SES:TransactionLink
+All elements in TransactionLink refer to the linked document.
+Attributes
+Attribute optional Description Comment
+ReasonCode x attributes:
+In case of a ControlTransaction and invoice
+duplicate:
+• SES:InvoiceDuplicate
+In case of a TenderControlTransaction (mainly in
+case of POS Payin/Payout) and
+in case of a ControlTransaction and voiding tax
+refund:
+• Voided
+In case of a ControlTransaction and tax refund
+issue:
+• SES:TaxRefund
+XML-elements
+XML element optional Description Comment
+RetailStoreID retail store number of the original transaction
+WorkstationID workstation/POS number of the original
+transaction
+SequenceNumber receipt number of the original transaction
+GK Software SE 44 / 47
+
+=== PAGE 45 ===
+LineItemSequenceNumber x won't be created for transaction link under
+control transaction and tender control
+transaction
+BusinessDayDate date of business day of the original transaction
+BeginDateTime begin date and time of the original transaction
+EndDateTime x end date and time of the original transaction
+SES:InternalSequenceNumber x won't be created
+SES:ReceiptDateTime x won't be created for transaction link under
+control transaction and tender control
+transaction
+SES:InternalTransactionID universally unique identifier (UUID) of the original
+transaction
+customExtension x Any elements can be added to the XML.
+GK Software SE 45 / 47
+
+=== PAGE 46 ===
+Bestätigung
+Mit der Unterschrift des Business Konzept Dokuments wird die Vollständigkeit und Richtigkeit bestätigt.
+________________________________________ ________________________________________
+GK/Retail Solution Model Omni-Channel GK/Retail Solution Model Omni-Channel
+POS POS – Projektmanager
+________________________________________ ________________________________________
+GK – Konsultant GK – Projektmanager
+Datum:
+GK Software SE 46 / 47
+
+=== PAGE 47 ===
+GK Software SE
+Waldstraße 7
+08261 Schöneck
+Deutschland
+T +49 (0) 3 74 64 84 – 0
+F +49 (0) 3 74 64 84 – 15
+www.gk-software.com
+The Retail Innovators
+
