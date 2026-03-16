@@ -11,7 +11,7 @@ import groovy.json.JsonOutput
  * Represents a binary data entry attached to a transaction or line item.
  * Used within SES:TransactionBinaryDataList and SES:LineItemBinaryDataList.
  */
-def newBinaryData = { [customFields: [:]] }
+def newBinaryData = { [name: null, content: null, customFields: [:]] }
 
 
 
@@ -20,38 +20,58 @@ def newBinaryData = { [customFields: [:]] }
  * Statistics about the accounting period of a drawer.
  * Corresponds to section 4.3.8.5 of the GK POSLog Structure v3.
  */
-def newSesCashierStatistics = { [:] }
+def newSesCashierStatistics = { [sessionSettle: null] }
 
 /**
  * Represents the SessionSettle container within SesCashierStatistics.
  */
-def newCashierSessionSettle = { [:] }
+def newCashierSessionSettle = {
+    [
+    transactionCount: null,
+    totalMeasures: null,
+    lineItemVoids: null,
+    postTransactionVoids: null,
+    sesTransactionCancellations: null,
+    sesDirectLineItemVoids: null,
+    sesAccountedOperatorID: null,
+    sesAccountedOperatorName: null
+    ]
+}
 
 /**
  * Represents TotalMeasures within CashierSessionSettle.
  * Corresponds to section 4.3.8.5 of the GK POSLog Structure v3.
  */
-def newTotalMeasures = { [:] }
+def newTotalMeasures = {
+    [
+    noSaleTransactionCount: null,
+    lineItemScannedCount: null,
+    lineItemOpenDepartmentCount: null,
+    sesLogonTime: null,
+    sesRegistrationTime: null,
+    sesTenderTime: null
+    ]
+}
 
 /**
  * Represents LineItemVoids within CashierSessionSettle.
  */
-def newLineItemVoids = { [:] }
+def newLineItemVoids = { [amount: null, count: null] }
 
 /**
  * Represents PostTransactionVoids within CashierSessionSettle.
  */
-def newPostTransactionVoids = { [:] }
+def newPostTransactionVoids = { [amount: null, count: null] }
 
 /**
  * Represents SES:TransactionCancellations within CashierSessionSettle.
  */
-def newSesTransactionCancellations = { [:] }
+def newSesTransactionCancellations = { [amount: null, count: null] }
 
 /**
  * Represents SES:DirectLineItemVoids within CashierSessionSettle.
  */
-def newSesDirectLineItemVoids = { [:] }
+def newSesDirectLineItemVoids = { [amount: null, count: null] }
 
 
 
@@ -59,31 +79,61 @@ def newSesDirectLineItemVoids = { [:] }
  * Represents a ControlTransaction in the POSLog export.
  * Corresponds to section 4.3.8 of the GK POSLog Structure v3.
  */
-def newControlTransaction = { [sesTransactionLinks: [], customFields: [:]] }
+def newControlTransaction = {
+    [
+    reasonCode: null,
+    businessEOD: null,
+    tillEOD: null,
+    noSaleTimestamp: null,
+    operatorSignOn: null,
+    operatorSignOff: null,
+    sesCashierStatistics: null,
+    sesStoreEODSummary: null,
+    sesTaxRefund: null,
+    sesOtherTransactionType: null,
+    sesForcedSignOffFlag: null,
+    sesForcedSignOffWorkstationID: null,
+    sesAccountedOperatorID: null,
+    sesAccountedOperatorName: null,
+    sesTransactionLinks: [],
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents BusinessEOD within ControlTransaction.
  * Corresponds to section 4.3.8.1 of the GK POSLog Structure v3.
  */
-def newBusinessEOD = { [:] }
+def newBusinessEOD = { [startDateTimestamp: null] }
 
 /**
  * Represents OperatorSignOn within ControlTransaction.
  * Corresponds to section 4.3.8.3 of the GK POSLog Structure v3.
  */
-def newOperatorSignOn = { [:] }
+def newOperatorSignOn = { [startDateTimestamp: null] }
 
 /**
  * Represents OperatorSignOff within ControlTransaction.
  * Corresponds to section 4.3.8.4 of the GK POSLog Structure v3.
  */
-def newOperatorSignOff = { [:] }
+def newOperatorSignOff = { [startDateTimestamp: null] }
 
 /**
  * Represents SES:TaxRefund within ControlTransaction.
  * Corresponds to section 4.3.8.7 of the GK POSLog Structure v3.
  */
-def newSesTaxRefund = { [customFields: [:]] }
+def newSesTaxRefund = {
+    [
+    typeCode: null,
+    sesTaxRefundDocumentID: null,
+    sesExternalTransactionID: null,
+    sesStoreInvoiceID: null,
+    sesTotalGrossAmount: null,
+    sesTotalTaxAmount: null,
+    sesTotalRefundAmount: null,
+    customFields: [:]
+    ]
+}
 
 
 
@@ -94,7 +144,29 @@ def newSesTaxRefund = { [customFields: [:]] }
  * The choice among sale, returnItem, rounding, sesRounding, voids, loyaltyReward,
  * tax, and tender determines the line item type.
  */
-def newLineItem = { [sesReceiptPositionAddonList: [], sesLineItemBinaryDataList: [], customFields: [:]] }
+def newLineItem = {
+    [
+    voidFlag: null,
+    entryMethod: null,
+    sequenceNumber: null,
+    beginDateTime: null,
+    sale: null,
+    returnItem: null,
+    rounding: null,
+    sesRounding: null,
+    voids: null,
+    loyaltyReward: null,
+    tax: null,
+    tender: null,
+    sesOperatorBypassApproval: null,
+    sesDirectVoidFlag: null,
+    sesNegativeAmountFlag: null,
+    sesKeyedOfflineCode: null,
+    sesReceiptPositionAddonList: [],
+    sesLineItemBinaryDataList: [],
+    customFields: [:]
+    ]
+}
 
 
 
@@ -1846,7 +1918,27 @@ def mapCustomFields = { target, node, count ->
  * Represents a RetailTransaction in the POSLog export.
  * Corresponds to section 4.3.6 of the GK POSLog Structure v3.
  */
-def newRetailTransaction = { [lineItems: [], totalCustomFields: [:], sesCouponSummaryList: [], customFields: [:]] }
+def newRetailTransaction = {
+    [
+    transactionStatus: null,
+    receiptDateTime: null,
+    lineItems: [],
+    totalGrandAmount: null,
+    totalNetAmount: null,
+    totalTaxAmount: null,
+    totalCustomFields: [:],
+    customer: null,
+    transactionLink: null,
+    sesNegativeTotalFlag: null,
+    sesAmendmentFlag: null,
+    sesEmailRequestedFlag: null,
+    sesEmailAddress: null,
+    sesInvoicePrintoutTypeCode: null,
+    sesInvoiceNumber: null,
+    sesCouponSummaryList: [],
+    customFields: [:]
+    ]
+}
 
 
 
@@ -1854,38 +1946,102 @@ def newRetailTransaction = { [lineItems: [], totalCustomFields: [:], sesCouponSu
  * Represents Customer data within RetailTransaction.
  * Corresponds to section 4.3.6.3 of the GK POSLog Structure v3.
  */
-def newCustomer = { [customFields: [:]] }
+def newCustomer = {
+    [
+    customerID: null,
+    customerName: null,
+    address: null,
+    telephone: null,
+    email: null,
+    birthdate: null,
+    gender: null,
+    sesCustomerType: null,
+    sesCustomerTypeDescription: null,
+    sesCustomerIdentifier: null,
+    sesEntryMethod: null,
+    sesCustomerLockingTypeCode: null,
+    sesCustomerTaxID: null,
+    sesCustomerGenericFlag: null,
+    sesCustomerBusinessNumber: null,
+    sesCustomerLocationNumber: null,
+    sesCustomerRequisitionRequired: null,
+    sesCustomerBuyerRequiredFlag: null,
+    sesCustomerBuyerName: null,
+    sesCustomerContactRequiredFlag: null,
+    sesCustomerContactPersonName: null,
+    sesCustomerGroup: null,
+    sesCustomerGroupDefaultBonusPointsCount: null,
+    sesParentCustomerID: null,
+    sesParentCustomerName1: null,
+    sesParentCustomerName2: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents customer name data within Customer.
  */
-def newCustomerName = { [:] }
+def newCustomerName = {
+    [
+    salutation: null,
+    firstName: null,
+    lastName: null,
+    fullName: null
+    ]
+}
 
 /**
  * Represents customer address data within Customer.
  */
-def newAddress = { [:] }
+def newAddress = {
+    [
+    addressLine: null,
+    addressLineTypeCode: null,
+    city: null,
+    postalCode: null,
+    country: null,
+    name: null
+    ]
+}
 
 /**
  * Represents customer telephone data within Customer.
  */
-def newTelephone = { [:] }
+def newTelephone = { [typeCode: null, fullTelephoneNumber: null] }
 
 /**
  * Represents customer email address data within Customer.
  */
-def newEmail = { [:] }
+def newEmail = { [emailAddress: null] }
 
 /**
  * Represents SES:CouponSummary within RetailTransaction.
  * Corresponds to section 4.3.6.5 of the GK POSLog Structure v3.
  */
-def newSesCouponSummary = { [sesCouponSerialSummaries: [], customFields: [:]] }
+def newSesCouponSummary = {
+    [
+    sesCouponNumber: null,
+    sesInputCount: null,
+    sesAppliedCount: null,
+    sesCustomerID: null,
+    sesCustomerAddressTypeCode: null,
+    sesCouponSerialSummaries: [],
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents SES:CouponSerialSummary within SES:CouponSummary.
  */
-def newSesCouponSerialSummary = { [customFields: [:]] }
+def newSesCouponSerialSummary = {
+    [
+    sesCouponSerialNumber: null,
+    sesBookingSuccessfulTypeCode: null,
+    sesBookingTransactionUUID: null,
+    sesUsedFlag: null,
+    customFields: [:]
+    ]
+}
 
 
 
@@ -1894,67 +2050,166 @@ def newSesCouponSerialSummary = { [customFields: [:]] }
  * Created in case of sales transaction (no returns, no empties, no voids).
  * Corresponds to the Sale section in 4.3.6.1 of the GK POSLog Structure v3.
  */
-def newSale = { [retailPriceModifiers: [], sesExternalReceiptReferenceList: [], customFields: [:]] }
+def newSale = {
+    [
+    itemType: null,
+    posIdentity: null,
+    itemID: null,
+    itemIDName: null,
+    specialOrderNumber: null,
+    merchandiseHierarchy: null,
+    epc: null,
+    description: null,
+    taxIncludedInPriceFlag: null,
+    regularSalesUnitPrice: null,
+    regularSalesUnitPriceCurrency: null,
+    regularSalesUnitPriceQuantity: null,
+    extendedAmount: null,
+    quantity: null,
+    quantityUnits: null,
+    quantityUnitOfMeasureCode: null,
+    associate: null,
+    retailPriceModifiers: [],
+    tax: null,
+    serialNumber: null,
+    transactionLink: null,
+    sesExtendedPositionAmount: null,
+    sesMerchandiseStructureItemFlag: null,
+    sesItemLink: null,
+    sesConcessionSupplierID: null,
+    sesSpecialOfferNumber: null,
+    sesAuthorizedForSalesFlag: null,
+    sesPriceOrigin: null,
+    sesLoyaltyReward: null,
+    sesExternalReceiptReferenceList: [],
+    sesInvoiceNumber: null,
+    sesReasonCode: null,
+    sesReasonType: null,
+    sesGiftCertificateData: null,
+    sesSalesOrderData: null,
+    sesPriceGroupID: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a Return line item in a RetailTransaction.
  * Shares the same structure as Sale with minor deviations.
  * Corresponds to the Return section in 4.3.6.1 of the GK POSLog Structure v3.
  */
-def newReturn = { newSale() }
+def newReturn = {
+    def m = newSale()
+    m.returnTransactionLink = null
+    m.sesReturnReasonCode = null
+    m
+}
 
 /**
  * Represents a POSIdentity element within Sale.
  */
-def newPOSIdentity = { [:] }
+def newPOSIdentity = { [posIDType: null, posItemID: null, qualifier: null] }
 
 /**
  * Represents an Associate (seller) element within Sale.
  */
-def newAssociate = { [:] }
+def newAssociate = { [associateID: null, operatorName: null, workerID: null] }
 
 /**
  * Represents a RetailPriceModifier element within Sale.
  */
-def newRetailPriceModifier = { [customFields: [:]] }
+def newRetailPriceModifier = {
+    [
+    sequenceNumber: null,
+    amount: null,
+    amountAction: null,
+    promotionID: null,
+    priceDerivationRule: null,
+    reasonCode: null,
+    sesRebateMethod: null,
+    sesRebateID: null,
+    sesPercent: null,
+    sesExternalOfferID: null,
+    sesAdditionalPriceTypeCode: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a PriceDerivationRule element within RetailPriceModifier or LoyaltyReward.
  */
-def newPriceDerivationRule = { [customFields: [:]] }
+def newPriceDerivationRule = {
+    [
+    priceDerivationRuleID: null,
+    eligibility: null,
+    amount: null,
+    amountAction: null,
+    sesOrigin: null,
+    sesAppliedQuantity: null,
+    sesRuleDescription: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents an Eligibility element within PriceDerivationRule.
  */
-def newEligibility = { [customFields: [:]] }
+def newEligibility = { [referenceID: null, referenceIDType: null, customFields: [:]] }
 
 /**
  * Represents SES:ItemLink within Sale (link to empties item).
  */
-def newSesItemLink = { [:] }
+def newSesItemLink = { [linkType: null] }
 
 /**
  * Represents SES:LoyaltyReward within Sale (position-specific bonus points).
  */
-def newSesLoyaltyReward = { [customFields: [:]] }
+def newSesLoyaltyReward = {
+    [
+    promotionID: null,
+    reasonCode: null,
+    pointsAwarded: null,
+    giftCertificate: null,
+    sesVoucher: null,
+    sequenceNumber: null,
+    sesPriceDerivationRule: null,
+    sesRebateMethod: null,
+    sesRebateID: null,
+    sesExternalOfferID: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents SES:GiftCertificateData within Sale (additional gift certificate data).
  * Corresponds to the SES:GiftCertificateData section in the GK POSLog Structure v3.
  */
-def newSesGiftCertificateData = { [customFields: [:]] }
+def newSesGiftCertificateData = { [sesGiftCertificateType: null, customFields: [:]] }
 
 /**
  * Represents SES:SalesOrderData within Sale (additional sales order data).
  * Corresponds to the SES:SalesOrderData section in the GK POSLog Structure v3.
  */
-def newSesSalesOrderData = { [customFields: [:]] }
+def newSesSalesOrderData = {
+    [
+    sesSpecialOrderSystem: null,
+    sesSpecialOrderType: null,
+    sesSpecialOrderPositionNumber: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a single entry in SES:ExternalReceiptReferenceList within Sale.
  * Corresponds to the SES:ExternalReceiptReferenceList section in the GK POSLog Structure v3.
  */
-def newSesExternalReceiptReference = { [customFields: [:]] }
+def newSesExternalReceiptReference = {
+    [
+    sesItemOrigin: null,
+    sesReceiptReferenceNumber: null,
+    sesExternalTransactionOfflineRedemptionFlag: null,
+    customFields: [:]
+    ]
+}
 
 
 
@@ -1963,7 +2218,7 @@ def newSesExternalReceiptReference = { [customFields: [:]] }
  * Total/summary values (store related).
  * Corresponds to section 4.3.8.6 of the GK POSLog Structure v3.
  */
-def newSesStoreEODSummary = { [:] }
+def newSesStoreEODSummary = { [sessionSettle: null] }
 
 /**
  * Represents the SessionSettle container within SesStoreEODSummary.
@@ -1976,17 +2231,47 @@ def newStoreEODSessionSettle = { [sesSalesSummaries: [], sesTaxSummaries: []] }
  * Represents a Tax element in a LineItem (line item level or transaction level).
  * Corresponds to the Tax sections in 4.3.6.1 of the GK POSLog Structure v3.
  */
-def newTax = { [customFields: [:]] }
+def newTax = {
+    [
+    taxType: null,
+    taxSubType: null,
+    typeCode: null,
+    taxAuthority: null,
+    taxableAmount: null,
+    amount: null,
+    percent: null,
+    taxExemption: null,
+    taxOverride: null,
+    taxGroupID: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a TaxExemption element within Tax.
  */
-def newTaxExemption = { [exemptTaxAmount: BigDecimal.ZERO, customFields: [:]] }
+def newTaxExemption = {
+    [
+    customerExemptionID: null,
+    exemptTaxAmount: BigDecimal.ZERO,
+    reasonCode: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a TaxOverride element within Tax.
  */
-def newTaxOverride = { [customFields: [:]] }
+def newTaxOverride = {
+    [
+    originalPercent: null,
+    originalTaxAmount: null,
+    newTaxPercent: null,
+    newTaxAmount: null,
+    reasonCode: null,
+    customFields: [:]
+    ]
+}
 
 
 
@@ -1996,83 +2281,176 @@ def newTaxOverride = { [customFields: [:]] }
  *
  * The choice among the various sub-elements determines the type of tender control transaction.
  */
-def newTenderControlTransaction = { [sesReceiptPositionAddonList: [], customFields: [:]] }
+def newTenderControlTransaction = {
+    [
+    sesTenderLoan: null,
+    deposit: null,
+    tillSettle: null,
+    safeDrop: null,
+    sesTenderPickup: null,
+    sesPaidIn: null,
+    sesPaidOut: null,
+    sesTenderLoanCarriedForward: null,
+    sesSafeSettle: null,
+    sesTransactionLink: null,
+    sesReceiptPositionAddonList: [],
+    sesAccountedOperatorID: null,
+    sesAccountedOperatorName: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents SES:TenderLoan within TenderControlTransaction.
  * Tender transfer from safe to drawer.
  * Corresponds to section 4.3.7.1 of the GK POSLog Structure v3.
  */
-def newSesTenderLoan = { [customFields: [:]] }
+def newSesTenderLoan = {
+    [
+    tenderType: null,
+    tenderDescription: null,
+    sesTotals: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents SES:Totals within SesTenderLoan.
  */
-def newSesTotals = { [customFields: [:]] }
+def newSesTotals = {
+    [
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null,
+    reason: null,
+    reasonDescription: null,
+    reasonName: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a Deposit element within TenderControlTransaction.
  * Safe bag or bank deposit – tender transfer from safe to bank.
  * Corresponds to section 4.3.7.2 of the GK POSLog Structure v3.
  */
-def newDeposit = { [bank: '', account: '', depositDetails: [], sesDepositForeignCurrencies: [], customFields: [:]] }
+def newDeposit = {
+    [
+    bank: '',
+    account: '',
+    bagID: null,
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null,
+    depositorWorkerID: null,
+    depositDetails: [],
+    sesDepositForeignCurrencies: [],
+    sesSafebagStatus: null,
+    sesSafebagDocumentNumber: null,
+    sesPickupSafebagNumber: null,
+    sesSafebagTypeCode: null,
+    sesStatusTimestamp: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents DepositDetail within Deposit.
  */
-def newDepositDetail = { [reason: '0000'] }
+def newDepositDetail = { [tenderTotal: null, tenderType: null, reason: '0000'] }
 
 /**
  * Represents SES:DepositForeignCurrency within Deposit.
  */
-def newSesDepositForeignCurrency = { [:] }
+def newSesDepositForeignCurrency = {
+    [
+    tenderTotal: null,
+    tenderType: null,
+    currency: null,
+    foreignAmount: null
+    ]
+}
 
 /**
  * Represents a TillSettle element within TenderControlTransaction.
  * Drawer settlement or drawer cash check.
  * Corresponds to section 4.3.7.3 of the GK POSLog Structure v3.
  */
-def newTillSettle = { [tenderSummaries: [], customFields: [:]] }
+def newTillSettle = { [tenderSummaries: [], sesTransactionCategoryCode: null, customFields: [:]] }
 
 /**
  * Represents SafeDrop within TenderControlTransaction.
  * Cash transfer from bank to safe.
  * Corresponds to section 4.3.7.4 of the GK POSLog Structure v3.
  */
-def newSafeDrop = { [envelopeID: '', dropNumber: ''] }
+def newSafeDrop = { [dropAmount: null, envelopeID: '', dropNumber: ''] }
 
 /**
  * Represents SES:TenderPickup within TenderControlTransaction.
  * Tender transfer from drawer to safe.
  * Corresponds to section 4.3.7.5 of the GK POSLog Structure v3.
  */
-def newSesTenderPickup = { [sesTenderAmounts: [], customFields: [:]] }
+def newSesTenderPickup = {
+    [
+    sesTenderAmounts: [],
+    sesTotalAmount: null,
+    sesTotalAmountTypeCode: null,
+    sesEnvelopeID: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a single SES:TenderAmount within SesTenderPickup.
  */
-def newSesTenderAmount = { [customFields: [:]] }
+def newSesTenderAmount = {
+    [
+    amount: null,
+    tenderType: null,
+    typeCode: null,
+    currency: null,
+    foreignAmount: null,
+    tenderDescription: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents SES:PaidIn within TenderControlTransaction.
  * Paid-in, safe opening balance, or safe correction pay-in transaction.
  * Corresponds to section 4.3.7.6 of the GK POSLog Structure v3.
  */
-def newSesPaidIn = { [sesTenders: [], customFields: [:]] }
+def newSesPaidIn = {
+    [
+    sesAmount: null,
+    sesReason: null,
+    sesTenders: [],
+    sesTransactionCategoryCode: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents SES:PaidOut within TenderControlTransaction.
  * Paid-out or safe correction pay-out transaction.
  * Corresponds to section 4.3.7.7 of the GK POSLog Structure v3.
  */
-def newSesPaidOut = { [tenders: [], customFields: [:]] }
+def newSesPaidOut = {
+    [
+    amount: null,
+    reason: null,
+    tenders: [],
+    sesTransactionCategoryCode: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents SES:TenderLoanCarriedForward within TenderControlTransaction.
  * Tender amount in the drawer at the beginning of an accounting period.
  * Corresponds to section 4.3.7.9 of the GK POSLog Structure v3.
  */
-def newSesTenderLoanCarriedForward = { [customFields: [:]] }
+def newSesTenderLoanCarriedForward = { [amount: null, customFields: [:]] }
 
 /**
  * Represents SES:SafeSettle within TenderControlTransaction.
@@ -2088,57 +2466,158 @@ def newSesSafeSettle = { [tenderSummaries: [], customFields: [:]] }
  * Created for each used tender.
  * Corresponds to the Tender section in 4.3.6.1 of the GK POSLog Structure v3.
  */
-def newTender = { [customFields: [:]] }
+def newTender = {
+    [
+    tenderType: null,
+    typeCode: null,
+    tenderDescription: null,
+    tenderID: null,
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null,
+    tenderChange: null,
+    cashback: null,
+    cashbackCurrency: null,
+    cashbackForeignAmount: null,
+    tip: null,
+    tipCurrency: null,
+    tipForeignAmount: null,
+    authorization: null,
+    foreignCurrency: null,
+    check: null,
+    creditDebit: null,
+    coupon: null,
+    voucher: null,
+    sesLoyaltyRedemption: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a TenderChange element within Tender.
  */
-def newTenderChange = { [:] }
+def newTenderChange = {
+    [
+    tenderType: null,
+    tenderID: null,
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null
+    ]
+}
 
 /**
  * Represents an Authorization element within Tender.
  * Corresponds to the Authorization section in 4.3.6.1 of the GK POSLog Structure v3.
  */
-def newAuthorization = { [customFields: [:]] }
+def newAuthorization = {
+    [
+    hostAuthorized: null,
+    electronicSignature: null,
+    forceOnline: null,
+    requestedAmount: null,
+    requestedAmountCurrency: null,
+    requestedForeignAmount: null,
+    authorizationCode: null,
+    referenceNumber: null,
+    authorizationDateTime: null,
+    authorizingTermID: null,
+    sesActivationSequenceNumber: null,
+    sesTransactionReferenceNumber: null,
+    sesTransactionType: null,
+    sesTerminalTenderDescription: null,
+    applicationID: null,
+    sesEncryptedPAN: null,
+    sesTransactionCurrencyCode: null,
+    sesTerminalTransactionToken: null,
+    sesApprovalCode: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a ForeignCurrency element within Tender.
  */
-def newForeignCurrency = { [:] }
+def newForeignCurrency = { [currencyCode: null, originalFaceAmount: null, exchangeRate: null] }
 
 /**
  * Represents a Check element within Tender.
  * Corresponds to the Check section in 4.3.6.1 of the GK POSLog Structure v3.
  */
-def newCheck = { [customFields: [:]] }
+def newCheck = {
+    [
+    bankID: null,
+    accountNumber: null,
+    checkCardNumber: null,
+    fullMICR: null,
+    sesBankIdentifierCode: null,
+    sesInternationalBankAccountNumber: null,
+    sesCheckNumber: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a CreditDebit element within Tender.
  * Corresponds to the CreditDebit section in 4.3.6.1 of the GK POSLog Structure v3.
  */
-def newCreditDebit = { [:] }
+def newCreditDebit = {
+    [
+    issuerIdentificationNumber: null,
+    primaryAccountNumber: null,
+    issueSequence: null,
+    expirationDate: null,
+    reconciliationCode: null,
+    startDate: null,
+    sesTraceNumber: null,
+    sesInternationalBankAccountNumber: null,
+    sesBankIdentifierCode: null,
+    sesCreditorID: null,
+    sesMandateID: null,
+    sesPrenotificationText: null
+    ]
+}
 
 /**
  * Represents a Coupon element within Tender.
  * Corresponds to the Coupon section in 4.3.6.1 of the GK POSLog Structure v3.
  */
-def newCoupon = { [quantity: 1, sesReferenceItemList: []] }
+def newCoupon = {
+    [
+    quantity: 1,
+    primaryLabel: null,
+    manufacturerID: null,
+    promotionCode: null,
+    sesCouponSingleAmount: null,
+    sesTaxPercent: null,
+    sesOrigin: null,
+    sesReferenceItemList: []
+    ]
+}
 
 /**
  * Represents a single entry in SES:ReferenceItemList within Coupon.
  */
-def newSesReferenceItem = { [itemLinkType: 'Coupon'] }
+def newSesReferenceItem = {
+    [
+    itemID: null,
+    itemQuantity: null,
+    itemRebateShare: null,
+    itemLink: null,
+    itemLinkType: 'Coupon'
+    ]
+}
 
 /**
  * Represents a Voucher element within Tender.
  */
-def newVoucher = { [:] }
+def newVoucher = { [typeCode: null, serialNumber: null] }
 
 /**
  * Represents SES:LoyaltyRedemption within Tender.
  * Corresponds to the SES:LoyaltyRedemption section in 4.3.6.1.
  */
-def newSesLoyaltyRedemption = { [customFields: [:]] }
+def newSesLoyaltyRedemption = { [pointsRedeemed: null, transactionID: null, customFields: [:]] }
 
 
 
@@ -2147,7 +2626,7 @@ def newSesLoyaltyRedemption = { [customFields: [:]] }
  * Total/summary values (drawer related).
  * Corresponds to section 4.3.8.2 of the GK POSLog Structure v3.
  */
-def newTillEOD = { [:] }
+def newTillEOD = { [sessionSettle: null] }
 
 /**
  * Represents the SessionSettle container within TillEOD.
@@ -2158,46 +2637,113 @@ def newTillEODSessionSettle = { [tenderSummaries: [], sesSalesSummaries: [], ses
  * Represents TenderSummary within TillEOD's SessionSettle.
  * Contains opening/closing/pickup/over/short/ending balance per tender.
  */
-def newTillEODTenderSummary = { [:] }
+def newTillEODTenderSummary = {
+    [
+    beginning: null,
+    pickup: null,
+    over: null,
+    shortEntry: null,
+    sesNominal: null,
+    sesSalesTenderNominal: null,
+    sesEnding: null
+    ]
+}
 
 /**
  * Represents Beginning within TillEODTenderSummary (opening balance).
  */
-def newBeginning = { [:] }
+def newBeginning = {
+    [
+    tenderType: null,
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null,
+    count: null
+    ]
+}
 
 /**
  * Represents Pickup within TillEODTenderSummary (manual pickup amount).
  */
-def newPickup = { [:] }
+def newPickup = {
+    [
+    tenderType: null,
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null,
+    count: null
+    ]
+}
 
 /**
  * Represents Over within TillEODTenderSummary (positive difference).
  */
-def newEODOver = { [:] }
+def newEODOver = {
+    [
+    tenderType: null,
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null,
+    count: null
+    ]
+}
 
 /**
  * Represents Short within TillEODTenderSummary (negative difference).
  * Named EODShort to avoid collision with java.lang.Short.
  */
-def newEODShort = { [:] }
+def newEODShort = {
+    [
+    tenderType: null,
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null,
+    count: null
+    ]
+}
 
 /**
  * Represents SES:SalesTenderNominal within TillEODTenderSummary.
  * Tender totals of all sales/return receipts.
  */
-def newSesSalesTenderNominal = { [:] }
+def newSesSalesTenderNominal = {
+    [
+    tenderType: null,
+    typeCode: null,
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null,
+    count: null
+    ]
+}
 
 /**
  * Represents SES:SalesSummary within TillEOD or SesStoreEODSummary SessionSettle.
  * Corresponds to section 4.3.8.2 of the GK POSLog Structure v3.
  */
-def newSesSalesSummary = { [reasonName: 'SalesID'] }
+def newSesSalesSummary = {
+    [
+    typeCode: null,
+    amount: null,
+    count: null,
+    reason: null,
+    reasonName: 'SalesID'
+    ]
+}
 
 /**
  * Represents SES:TaxSummary within TillEOD or SesStoreEODSummary SessionSettle.
  * Corresponds to section 4.3.8.2 of the GK POSLog Structure v3.
  */
-def newSesTaxSummary = { [:] }
+def newSesTaxSummary = {
+    [
+    tenderType: null,
+    amount: null,
+    count: null,
+    sesTaxAuthorityID: null,
+    sesTaxGroupID: null
+    ]
+}
 
 
 
@@ -2205,28 +2751,70 @@ def newSesTaxSummary = { [:] }
  * Represents a TenderSummary element used in TillSettle and SesSafeSettle.
  * Corresponds to the TenderSummary section in 4.3.7.3 and 4.3.7.10.
  */
-def newTenderSummary = { [customFields: [:]] }
+def newTenderSummary = {
+    [
+    over: null,
+    shortSummary: null,
+    sesNominal: null,
+    sesEnding: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents an Over element within TenderSummary (positive count difference).
  */
-def newOver = { [:] }
+def newOver = {
+    [
+    tenderType: null,
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null,
+    count: null
+    ]
+}
 
 /**
  * Represents a Short element within TenderSummary (negative count difference).
  * Named ShortSummary to avoid collision with java.lang.Short.
  */
-def newShortSummary = { [:] }
+def newShortSummary = {
+    [
+    tenderType: null,
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null,
+    count: null
+    ]
+}
 
 /**
  * Represents SES:Nominal within TenderSummary (closing/target balance).
  */
-def newSesNominal = { [:] }
+def newSesNominal = {
+    [
+    tenderType: null,
+    typeCode: null,
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null,
+    count: null
+    ]
+}
 
 /**
  * Represents SES:Ending within TenderSummary (counted/actual balance).
  */
-def newSesEnding = { [:] }
+def newSesEnding = {
+    [
+    tenderType: null,
+    typeCode: null,
+    amount: null,
+    amountCurrency: null,
+    foreignAmount: null,
+    count: null
+    ]
+}
 
 
 
@@ -2237,7 +2825,57 @@ def newSesEnding = { [:] }
  * The choice between retailTransaction, tenderControlTransaction and controlTransaction
  * determines the type of transaction.
  */
-def newTransaction = { [majorVersion: 3, minorVersion: 0, fixVersion: 0, sesInternalMajorVersion: 2, sesInternalMinorVersion: 5, sesInternalFixVersion: 9, sesReceiptHeaderAddonList: [], sesReceiptTimerList: [], sesTransactionBinaryDataList: [], customFields: [:]] }
+def newTransaction = {
+    [
+    majorVersion: 3,
+    minorVersion: 0,
+    fixVersion: 0,
+    sesInternalMajorVersion: 2,
+    sesInternalMinorVersion: 5,
+    sesInternalFixVersion: 9,
+    cancelFlag: null,
+    trainingModeFlag: null,
+    retailStoreID: null,
+    workstationID: null,
+    tillID: null,
+    sequenceNumber: null,
+    businessDayDate: null,
+    beginDateTime: null,
+    endDateTime: null,
+    operatorID: null,
+    operatorName: null,
+    workerID: null,
+    currencyCode: null,
+    sesTenantID: null,
+    sesBusinessBeginDateTime: null,
+    sesBusinessEndDateTime: null,
+    sesReceiptReturnedFlag: null,
+    sesReasonCode: null,
+    sesReasonType: null,
+    sesReasonDescription: null,
+    sesPostVoidedFlag: null,
+    sesTransactionSoftwareVersion: null,
+    sesSoftwareVersion: null,
+    sesKeyedOfflineCode: null,
+    sesInternalTransactionID: null,
+    sesFiscalSequenceNumber: null,
+    sesFiscalFlag: null,
+    sesFiscalDayNumber: null,
+    sesFiscalPrinterID: null,
+    sesFiscalSignature: null,
+    sesLayawayFlag: null,
+    sesLayawayTransactionType: null,
+    sesOperatorBypassApproval: null,
+    sesReceiptHeaderAddonList: [],
+    sesReceiptTimerList: [],
+    sesLoyaltyAccount: null,
+    sesTransactionBinaryDataList: [],
+    retailTransaction: null,
+    tenderControlTransaction: null,
+    controlTransaction: null,
+    customFields: [:]
+    ]
+}
 
 
 
@@ -2246,31 +2884,57 @@ def newTransaction = { [majorVersion: 3, minorVersion: 0, fixVersion: 0, sesInte
  * Used in Transaction and LineItem.
  * Corresponds to section 4.3.1 of the GK POSLog Structure v3.
  */
-def newSesOperatorBypassApproval = { [customFields: [:]] }
+def newSesOperatorBypassApproval = {
+    [
+    approvalTypeCode: null,
+    approvalCode: null,
+    approverID: null,
+    workerID: null,
+    approverName: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a single addon entry within SES:ReceiptHeaderAddonList.
  * Corresponds to section 4.3.2.1 of the GK POSLog Structure v3.
  */
-def newAddon = { [customFields: [:]] }
+def newAddon = {
+    [
+    addonPos: null,
+    key: null,
+    value: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a single timer entry within SES:ReceiptTimerList.
  * Corresponds to section 4.3.3.1 of the GK POSLog Structure v3.
  */
-def newTimer = { [:] }
+def newTimer = { [timerID: null, startTimestamp: null, duration: null] }
 
 /**
  * Represents SES:LoyaltyAccount on transaction level.
  * Corresponds to section 4.3.4 of the GK POSLog Structure v3.
  */
-def newSesLoyaltyAccount = { [loyaltyPrograms: []] }
+def newSesLoyaltyAccount = { [customerID: null, loyaltyPrograms: []] }
 
 /**
  * Represents a loyalty program within SES:LoyaltyAccount.
  * Corresponds to section 4.3.4.1 of the GK POSLog Structure v3.
  */
-def newLoyaltyProgram = { [customFields: [:]] }
+def newLoyaltyProgram = {
+    [
+    loyaltyAccountID: null,
+    effectiveDate: null,
+    points: null,
+    pointsType: null,
+    loyaltyAccountTypeCode: null,
+    loyaltyAccountTransactionID: null,
+    customFields: [:]
+    ]
+}
 
 
 
@@ -2279,7 +2943,20 @@ def newLoyaltyProgram = { [customFields: [:]] }
  * Used within RetailTransaction, TenderControlTransaction, and ControlTransaction.
  * Corresponds to multiple TransactionLink sections in the GK POSLog Structure v3.
  */
-def newTransactionLink = { [:] }
+def newTransactionLink = {
+    [
+    reasonCode: null,
+    retailStoreID: null,
+    workstationID: null,
+    sequenceNumber: null,
+    lineItemSequenceNumber: null,
+    businessDayDate: null,
+    beginDateTime: null,
+    endDateTime: null,
+    sesReceiptDateTime: null,
+    sesInternalTransactionID: null
+    ]
+}
 
 
 
@@ -2296,47 +2973,100 @@ def newRounding = { [:] }
  * for subtotal rounding or tender change rounding.
  * Corresponds to the SES:Rounding section in 4.3.6.1 of the GK POSLog Structure v3.
  */
-def newSesRounding = { [customFields: [:]] }
+def newSesRounding = {
+    [
+    sesRoundingTypeCode: null,
+    sesAmount: null,
+    sesRoundingDirection: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a Voids element in a LineItem.
  * Created only in case of a void position.
  * Corresponds to the Voids section in 4.3.6.1 of the GK POSLog Structure v3.
  */
-def newVoids = { [:] }
+def newVoids = { [itemLink: null] }
 
 /**
  * Represents an ItemLink element within Voids.
  */
-def newItemLink = { [reasonCode: 'Voided', customFields: [:]] }
+def newItemLink = {
+    [
+    reasonCode: 'Voided',
+    sequenceNumber: null,
+    lineItemSequenceNumber: null,
+    sesVoidReasonCode: null,
+    sesVoidReasonType: null,
+    sesVoidReasonDescription: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a LoyaltyReward element in a LineItem.
  * Created only in case of non-financial bonus.
  * Corresponds to the LoyaltyReward section in 4.3.6.1 of the GK POSLog Structure v3.
  */
-def newLoyaltyReward = { [customFields: [:]] }
+def newLoyaltyReward = {
+    [
+    promotionID: null,
+    reasonCode: null,
+    pointsAwarded: null,
+    giftCertificate: null,
+    sesVoucher: null,
+    sequenceNumber: null,
+    sesPriceDerivationRule: null,
+    sesRebateMethod: null,
+    sesRebateID: null,
+    sesExternalOfferID: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a GiftCertificate element within LoyaltyReward.
  */
-def newGiftCertificate = { [giftCertificateID: '', customFields: [:]] }
+def newGiftCertificate = {
+    [
+    mediaType: null,
+    serialNumber: null,
+    faceValue: null,
+    giftCertificateID: '',
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents an SES:Voucher element within LoyaltyReward.
  */
-def newSesVoucher = { [:] }
+def newSesVoucher = { [sesVoucherID: null, sesAmount: null, sesCouponSerial: null] }
 
 /**
  * Represents SES:CouponSerial within SES:Voucher.
  */
-def newSesCouponSerial = { [customFields: [:]] }
+def newSesCouponSerial = {
+    [
+    sesCouponSerialNumber: null,
+    sesBookingSuccessfulTypeCode: null,
+    sesBookingTransactionUUID: null,
+    customFields: [:]
+    ]
+}
 
 /**
  * Represents a receipt position addon entry within SES:ReceiptPositionAddonList.
  * Corresponds to the SES:ReceiptPositionAddonList section in 4.3.6.1.
  */
-def newSesReceiptPositionAddon = { [customFields: [:]] }
+def newSesReceiptPositionAddon = {
+    [
+    addonPos: null,
+    key: null,
+    value: null,
+    customFields: [:]
+    ]
+}
 
 
 // ============================================================
