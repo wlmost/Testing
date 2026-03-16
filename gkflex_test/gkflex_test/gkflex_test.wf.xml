@@ -1,0 +1,24 @@
+<process-definition xmlns='http://sarasvati.googlecode.com/ProcessDefinition' name='gkflex_test' id='2de70151-80d2-42c9-8d30-4bac7f90a072'>
+
+    <node name='message-received' type='fix-env' id='c25159bd-295e-4174-a4ee-f7386284315c' isStart='true'>
+        <arc to='convert-to-json' />
+    </node>
+    <!-- Convert XML to JSON for internal processing -->
+    <node name="convert-to-json" type="xml2json" id="fe5d5c9d-a560-4745-aa82-32ae84097346">
+        <arc to="extract-to-mongodb" />
+        <custom>
+		    <fileSelector><![CDATA[{'type': 'input'}]]>]</fileSelector>
+        </custom>
+    </node>
+
+    <!-- Extract POSLOG data to MongoDB (Feature: 1-poslog-data-extraction) -->
+    <node name="extract-to-mongodb" type="extract-with-script" id="1773b238-08f5-4438-8938-5c55b22943ee">
+        <arc to="message-processed" />
+        <custom>
+            <intoGlobal>true</intoGlobal>
+            <scriptFileName>POSLogToMongoDB.groovy</scriptFileName>
+        </custom>
+    </node>
+    <node name='message-processed' id='0a2f68cf-70e3-4dc3-8f8d-e323a18b0ab1' />
+
+</process-definition>

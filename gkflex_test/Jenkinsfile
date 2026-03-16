@@ -1,0 +1,122 @@
+pipeline {
+  agent any
+
+  environment {
+    GIT_COMMIT_REV = ''
+    // Jira URL
+    JIRA_URL = 'https://bauhaus-de.atlassian.net'
+    // Wir holen die Credentials aus dem Jenkins Credentials Store
+    JIRA_CREDS = credentials('jira-creds')  // 'jira-creds' ist die ID des gespeicherten Credentials
+    // Proxy settings
+    HTTP_PROXY = 'http://de0001sweb10006.de.bauhaus.intra:8080'
+    HTTPS_PROXY = 'http://de0001sweb10006.de.bauhaus.intra:8080'
+  }
+
+  stages {
+    stage('Clean test environment') {
+      steps {
+        sh '''
+<TODO: Put your clean up commands here>
+        '''
+      }
+    }
+
+    stage('Configure') {
+      steps {
+        script {
+          GIT_COMMIT_REV = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+        }
+      }
+    }
+
+    stage('Prepare test data') {
+      steps {
+        sh '''
+ <TODO: Put your prepare commands here>
+        '''
+      }
+    }
+
+    stage('Provide new code') {
+      steps {
+        sh '''cd ${WORKSPACE}/gkflex_test
+profile_dir=$(cat .manifest | grep \'"uid"\' | \\
+              awk -F \':\' \'{print $2}\' | \\
+              sed -e s/\\"//g -e s/,//g -e s/\\ //g)
+sudo rm -f /services/yse/profiles/${profile_dir}/*
+sudo rm -f /services/yse/profiles/${profile_dir}/.manifest
+find -maxdepth 1 -type f -exec sudo cp {} /services/yse/profiles/$profile_dir \\;'''
+      }
+    }
+
+    stage('Run behave test') {
+      environment {
+        KEYS = '/var/lib/jenkins/workspace/keys'
+      }
+      steps {
+        script {
+          try {
+            sh '''
+cd ${WORKSPACE}/gkflex_test/t
+behave --junit --junit-directory=${WORKSPACE}/gkflex_test/t/junit-reports
+'''
+          } catch (Exception e) {
+            currentBuild.result = 'UNSTABLE'
+          }
+        }
+      }
+    }
+
+    stage('Generate report') {
+      steps {
+        script {
+          def buildNumber = currentBuild.number
+          def reportTitle = 'Build Report for Build No ${buildNumber}'
+          junit '**/junit-reports/*.xml'
+        }
+      }
+    }
+
+    stage('Reset test data') {
+      steps {
+        sh '''
+         <TODO: Put your reset commands here>
+        '''
+      }
+    }
+
+    stage('Notify Jira') {
+      steps {
+        script {
+          // Jira Ticket ID
+          def jiraIssueKey = '<TICKET-ID>'  // Ersetzen Sie <TICKET-ID> durch die tatsächliche Ticket-ID
+          def buildStatus = currentBuild.result ?: 'SUCCESS'
+
+          // Der Kommentartext, der dem Ticket hinzugefügt wird
+          def comment = "Schnittstelle oscsap_sa450: Build Status: ${buildStatus}."
+
+          // Jira REST API für Kommentar-Update aufrufen
+          def url = "${JIRA_URL}/rest/api/2/issue/${jiraIssueKey}/comment"
+          
+          // Use the withCredentials block to properly handle sensitive credentials
+          withCredentials([usernamePassword(credentialsId: 'JIRA_CREDS', 
+                                          usernameVariable: 'JIRA_USER', 
+                                          passwordVariable: 'JIRA_PASS')]) {
+            // API-Aufruf mit curl und Proxy, using variables within double quotes
+            sh """
+              curl --request POST \\
+                   --url ${url} \\
+                   --user "\${JIRA_USER}:\${JIRA_PASS}" \\
+                   --header "Accept: application/json" \\
+                   --header "Content-Type: application/json" \\
+                   --data '{
+                      "body": "${comment}"
+                    }' \\
+                  --proxy ${HTTPS_PROXY}  
+            """
+          }
+        }
+      }
+    }
+  }
+}

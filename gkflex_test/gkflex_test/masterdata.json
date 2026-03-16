@@ -1,0 +1,101 @@
+[
+  {
+    "name"       : "GK",
+    "uid"        : "ae7ed140-cccb-4b16-89a3-05c05a985b98",
+    "street"     : "Gutenbergstr. 21",
+    "postcode"   : "68167",
+    "city"       : "Mannheim",
+    "country"    : "Germany",
+    "department" : "POS"
+  },
+  {
+    "name"       : "SAP Retail",
+    "uid"        : "38de89c9-6bfa-1014-a89f-a6cc8a95ff56",
+    "street"     : "Gutenbergstr. 21",
+    "postcode"   : "68167",
+    "city"       : "Mannheim",
+    "country"    : "Germany",
+    "department" : "SCC"
+  },
+  {
+    "name"       : "SAP FICO",
+    "uid"        : "3c54f91c-6bfa-1014-86d8-62c38a95ff56",
+    "street"     : "Gutenbergstr. 21",
+    "postcode"   : "68167",
+    "city"       : "Mannheim",
+    "country"    : "Germany",
+    "department" : "SCC"
+  },
+  {
+    "name"       : "SAP BW",
+    "uid"        : "3eeba281-6bfa-1014-baa6-dacb8a95ff56",
+    "street"     : "Gutenbergstr. 21",
+    "postcode"   : "68167",
+    "city"       : "Mannheim",
+    "country"    : "Germany",
+    "department" : "SCC"
+  },
+  {
+    "name"       : "SAP EWM",
+    "uid"        : "e868f836-8b07-11e6-9ce1-3f8f94b35737",
+    "street"     : "Gutenbergstr. 21",
+    "postcode"   : "68167",
+    "city"       : "Mannheim",
+    "country"    : "Germany",
+    "department" : "SCC"
+  },
+  {
+    "name"       : "SAP CAR",
+    "uid"        : "b309e63f-6bf6-1014-972d-9997a0b2546f",
+    "street"     : "Gutenbergstr. 21",
+    "postcode"   : "68167",
+    "city"       : "Mannheim",
+    "country"    : "Germany",
+    "department" : "SCC"
+  },
+  {
+    "name"       : "BTI",
+    "uid"        : "41a3da45-6bfa-1014-8ba4-0ec18a95ff56",
+    "street"     : "Gutenbergstr. 21",
+    "postcode"   : "68167",
+    "city"       : "Mannheim",
+    "country"    : "Germany",
+    "department" : "WWS"
+  },
+  {
+    "name"       : "OSCAR",
+    "uid"        : "4429a9fc-6bfa-1014-b029-bad48a95ff56",
+    "street"     : "Gutenbergstr. 21",
+    "postcode"   : "68167",
+    "city"       : "Mannheim",
+    "country"    : "Germany",
+    "department" : "ORG"
+  },
+  {
+    "name"       : "Buchhaltung",
+    "uid"        : "b289d0f0-6c05-1014-912a-46da8a95ff56",
+    "street"     : "Gutenbergstr. 21",
+    "postcode"   : "68167",
+    "city"       : "Mannheim",
+    "country"    : "Germany",
+    "department" : "Buchhaltung"
+  },
+  {
+    "name"       : "PAW",
+    "uid"        : "bca466de-8587-11e6-841b-a8fa94b35737",
+    "street"     : "Gutenbergstr. 21",
+    "postcode"   : "68167",
+    "city"       : "Mannheim",
+    "country"    : "Germany",
+    "department" : "Einkauf (Pflanzen)"
+  },  
+  {
+    "name"       : "BDX (Bauhaus Data Exchange)",
+    "uid"        : "ecbbf3ea-8a10-11e6-8b7a-3ba794b35737",
+    "street"     : "Gutenbergstr. 21",
+    "postcode"   : "68167",
+    "city"       : "Mannheim",
+    "country"    : "Germany",
+    "department" : "E-Business"
+  }
+]

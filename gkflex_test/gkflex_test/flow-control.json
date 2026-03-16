@@ -1,0 +1,18 @@
+[
+    {
+        "profile-uid": "c68399cc-8b20-4723-8cb4-44eec7c23b4e",
+        "wf-name": "gkflex_test",
+        "node-uid": "c25159bd-295e-4174-a4ee-f7386284315c",
+        "env": {
+            "DefaultConnector": "99b44981-23f6-4ad7-a7d7-15b4068c8d00"
+        },
+        "conditions": [
+            {
+                "files.content.msg-type": [
+                    "POSLog"
+                ]
+ 
+            }
+        ]
+    }
+]

@@ -1,0 +1,153 @@
+{
+    "uid" : "46006f74-d63c-4600-8748-3b9845e57ece",
+    "name": "gkflex_test",
+    "creation-time": "2026-03-16T07:17:10+0000",
+    "package-type": "process",
+    "implementation-type": "mapping",
+    "direction": "inbound",
+    "process-type": "integration",
+    "partner-information": [
+        {
+            "profile-uuid": "c68399cc-8b20-4723-8cb4-44eec7c23b4e",
+            "partner-uuid": "3c54f91c-6bfa-1014-86d8-62c38a95ff56",
+            "format": "json",
+            "message-type": "json",
+            "version": "1.0",
+            "owner-uuid": "ae7ed140-cccb-4b16-89a3-05c05a985b98"
+        }
+    ],
+    "attr": {
+        "flow-control.json": {
+            "content-type": "application/json",
+            "tags": [
+                "flowctrl"
+            ]
+        },
+        "masterdata.json": {
+            "content-type": "application/json",
+            "tags": [
+                "masterdata-array"
+            ]
+        },
+        "BinaryData.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "CashierStatisticsTypes.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "ControlTransaction.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "LineItem.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "POSLog.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "POSLogJsonMapper.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "POSLogToMongoDB.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "RetailTransaction.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "RetailTransactionExtensions.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "SaleTypes.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "StoreEODTypes.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "TaxTypes.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "TenderControlTransaction.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "TenderTypes.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "TillEODTypes.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "TillSettleTypes.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "Transaction.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "TransactionExtensions.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "TransactionLink.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        },
+        "VoidLoyaltyTypes.groovy": {
+            "content-type": "application/octet-stream",
+            "tags": [
+                "script"
+            ]
+        }
+    }
+}
